@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Posts Viewer</title>
+  <style>
+* { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; margin: 0; padding: 24px; background: #f6f8fa; color: #222; }
+header { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+h1 { margin: 0 auto 0 0; font-size: 1.5rem; }
+input { padding: 10px 12px; border: 1px solid #ccc; border-radius: 8px; min-width: 220px; }
+button { background: #0969da; color: #fff; border: 0; padding: 10px 16px; border-radius: 8px; cursor: pointer; }
+button.small { padding: 6px 10px; font-size: .85rem; margin-top: 8px; }
+.status { min-height: 24px; color: #555; margin-bottom: 8px; }
+.status.error { color: #d1242f; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.post { background: #fff; padding: 16px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+.post h3 { margin: 0 0 8px; text-transform: capitalize; font-size: 1.05rem; }
+.post p { margin: 0; color: #444; }
+.comments { margin-top: 10px; padding-left: 16px; font-size: .85rem; color: #555; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Blog Posts Viewer</h1>
+    <input id="search" type="search" placeholder="Filter posts by title...">
+    <button id="reloadBtn">Reload</button>
+  </header>
+  <div id="status" class="status"></div>
+  <section id="posts" class="grid"></section>
+  <script>
+const BASE = 'https://jsonplaceholder.typicode.com';
+
+const postsEl = document.getElementById('posts');
+const statusEl = document.getElementById('status');
+const searchEl = document.getElementById('search');
+const reloadBtn = document.getElementById('reloadBtn');
+
+let allPosts = [];
+
+async function getJSON(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('HTTP error: ' + res.status);
+  return res.json();
+}
+
+async function loadPosts() {
+  statusEl.textContent = 'Loading posts...';
+  statusEl.className = 'status';
+  reloadBtn.disabled = true;
+  try {
+    allPosts = await getJSON(BASE + '/posts?_limit=12');
+    render(allPosts);
+    statusEl.textContent = '';
+  } catch (err) {
+    statusEl.textContent = 'Could not load posts: ' + err.message;
+    statusEl.className = 'status error';
+  } finally {
+    reloadBtn.disabled = false;
+  }
+}
+
+function render(posts) {
+  postsEl.innerHTML = '';
+  if (posts.length === 0) {
+    statusEl.textContent = 'No posts match your filter.';
+    return;
+  }
+  statusEl.textContent = '';
+  posts.forEach(p => {
+    const card = document.createElement('article');
+    card.className = 'post';
+
+    const h = document.createElement('h3');
+    h.textContent = p.title;
+    const body = document.createElement('p');
+    body.textContent = p.body;
+    const btn = document.createElement('button');
+    btn.className = 'small';
+    btn.textContent = 'Show comments';
+    const list = document.createElement('ul');
+    list.className = 'comments';
+
+    btn.addEventListener('click', () => toggleComments(p.id, btn, list));
+    card.append(h, body, btn, list);
+    postsEl.appendChild(card);
+  });
+}
+
+async function toggleComments(postId, btn, list) {
+  if (list.children.length > 0) {
+    list.innerHTML = '';
+    btn.textContent = 'Show comments';
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = 'Loading...';
+  try {
+    const comments = await getJSON(BASE + '/posts/' + postId + '/comments?_limit=3');
+    comments.forEach(c => {
+      const li = document.createElement('li');
+      li.textContent = c.email + ': ' + c.name;
+      list.appendChild(li);
+    });
+    btn.textContent = 'Hide comments';
+  } catch (err) {
+    btn.textContent = 'Failed — retry';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+searchEl.addEventListener('input', () => {
+  const q = searchEl.value.trim().toLowerCase();
+  render(allPosts.filter(p => p.title.toLowerCase().includes(q)));
+});
+reloadBtn.addEventListener('click', loadPosts);
+loadPosts();
+</script>
+</body>
+</html>

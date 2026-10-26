@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conditions and Loops | Week 5</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="../index.html">Home</a>
+    <a href="../week2/index.html">Week 2</a>
+    <a href="../week3/index.html">Week 3</a>
+    <a href="../week4/index.html">Week 4</a>
+    <a href="index.html" aria-current="page">Week 5</a>
+    <a href="../week7/index.html">Week 7</a>
+  </nav>
+  <main class="page-shell">
+    <p class="instruction">Instructions: Enter a whole number from 1 to 12 to check whether it is even and generate a loop sequence.</p>
+    <a class="back-link" href="index.html">← Back to Week 5</a>
+    <h1>Conditions and loops</h1>
+    <section class="panel">
+      <form id="number-form" novalidate>
+        <div class="form-row">
+          <label for="number">Number (1–12)</label>
+          <input id="number" type="number" min="1" max="12" step="1" placeholder="e.g., 6">
+        </div>
+        <div class="button-row">
+          <button class="button" type="submit">Run example</button>
+          <button class="button button-secondary" type="reset">Reset</button>
+        </div>
+        <p class="message error" id="error" role="alert"></p>
+        <p class="result" id="result" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+  <script>
+    const form = document.querySelector('#number-form');
+    const input = document.querySelector('#number');
+    const error = document.querySelector('#error');
+    const result = document.querySelector('#result');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const value = Number(input.value);
+      if (!input.value.trim() || !Number.isInteger(value) || value < 1 || value > 12) {
+        error.textContent = 'Enter a whole number from 1 to 12.';
+        result.textContent = '';
+        return;
+      }
+      error.textContent = '';
+      const parity = value % 2 === 0 ? 'even' : 'odd';
+      const sequence = [];
+      for (let current = 1; current <= value; current += 1) {
+        sequence.push(current);
+      }
+      result.textContent = `${value} is ${parity}. The loop counted: ${sequence.join(', ')}.`;
+    });
+
+    form.addEventListener('reset', () => {
+      error.textContent = '';
+      result.textContent = '';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSS Color Preview | Week 3</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="../index.html">Home</a>
+    <a href="../week2/index.html">Week 2</a>
+    <a href="index.html" aria-current="page">Week 3</a>
+    <a href="../week4/index.html">Week 4</a>
+    <a href="../week5/index.html">Week 5</a>
+    <a href="../week7/index.html">Week 7</a>
+  </nav>
+  <main class="page-shell">
+    <p class="instruction">Instructions: Enter a CSS color name or hex value (for example, coral or #176B87) and apply it to the preview.</p>
+    <a class="back-link" href="index.html">← Back to Week 3</a>
+    <h1>Style a preview card</h1>
+    <section class="panel">
+      <form id="color-form" novalidate>
+        <div class="form-row">
+          <label for="color">Card background color</label>
+          <input id="color" type="text" placeholder="e.g., #176B87">
+        </div>
+        <div class="button-row">
+          <button class="button" type="submit">Apply color</button>
+          <button class="button button-secondary" type="reset">Reset</button>
+        </div>
+        <p class="message error" id="error" role="alert"></p>
+      </form>
+      <article class="preview-card" id="color-preview">
+        <h2>CSS color preview</h2>
+        <p>Change this card's background with a CSS color value.</p>
+      </article>
+    </section>
+  </main>
+  <script>
+    const form = document.querySelector('#color-form');
+    const input = document.querySelector('#color');
+    const preview = document.querySelector('#color-preview');
+    const error = document.querySelector('#error');
+    const defaultColor = '#f8fbf9';
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const value = input.value.trim();
+      if (!value) {
+        error.textContent = 'Please enter a CSS color value.';
+        return;
+      }
+      if (!CSS.supports('color', value)) {
+        error.textContent = 'Enter a valid CSS color, such as coral or #176B87.';
+        return;
+      }
+      preview.style.backgroundColor = value;
+      error.textContent = '';
+    });
+
+    form.addEventListener('reset', () => {
+      preview.style.backgroundColor = defaultColor;
+      error.textContent = '';
+    });
+  </script>
+</body>
+</html>

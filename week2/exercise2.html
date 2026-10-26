@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Semantic Element Quiz | Week 2</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="../index.html">Home</a>
+    <a href="index.html" aria-current="page">Week 2</a>
+    <a href="../week3/index.html">Week 3</a>
+    <a href="../week4/index.html">Week 4</a>
+    <a href="../week5/index.html">Week 5</a>
+    <a href="../week7/index.html">Week 7</a>
+  </nav>
+  <main class="page-shell">
+    <p class="instruction">Instructions: Type the semantic element that holds the page's primary content, then press Enter or Check answer.</p>
+    <a class="back-link" href="index.html">← Back to Week 2</a>
+    <h1>Choose the semantic element</h1>
+    <section class="panel">
+      <form id="quiz-form" novalidate>
+        <div class="form-row">
+          <label for="answer">Element name</label>
+          <input id="answer" type="text" placeholder="e.g., main">
+        </div>
+        <div class="button-row">
+          <button class="button" type="submit">Check answer</button>
+          <button class="button button-secondary" id="reset" type="reset">Reset</button>
+        </div>
+        <p class="message error" id="error" role="alert"></p>
+        <p class="message" id="result" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+  <script>
+    const form = document.querySelector('#quiz-form');
+    const answer = document.querySelector('#answer');
+    const error = document.querySelector('#error');
+    const result = document.querySelector('#result');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const value = answer.value.trim().toLowerCase().replace(/[<>]/g, '');
+      result.textContent = '';
+      if (!value) {
+        error.textContent = 'Please enter an element name.';
+      } else if (value !== 'main') {
+        error.textContent = 'That is not the primary-content element. Try again.';
+      } else {
+        error.textContent = '';
+        result.textContent = 'Correct! The <main> element contains the page’s primary content.';
+      }
+    });
+
+    form.addEventListener('reset', () => {
+      error.textContent = '';
+      result.textContent = '';
+    });
+  </script>
+</body>
+</html>

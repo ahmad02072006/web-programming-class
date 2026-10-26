@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Pokédex</title>
+  <style>
+* { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; margin: 0; min-height: 100vh; display: grid; place-items: center; background: #ffe066; padding: 16px; }
+.card { background: #fff; width: 100%; max-width: 440px; padding: 28px; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,.15); text-align: center; }
+h1 { margin-top: 0; }
+form { display: flex; gap: 8px; }
+input { flex: 1; padding: 10px 12px; border: 1px solid #ccc; border-radius: 10px; font-size: 1rem; }
+button { background: #e03131; color: #fff; border: 0; padding: 10px 18px; border-radius: 10px; cursor: pointer; }
+button:disabled { opacity: .5; }
+.status { min-height: 24px; margin: 12px 0; color: #555; }
+.status.error { color: #d93025; }
+.sprite { width: 160px; height: 160px; image-rendering: pixelated; }
+.pname { text-transform: capitalize; margin: 0; }
+.types { margin: 8px 0 16px; }
+.type { display: inline-block; background: #e9ecef; padding: 4px 12px; border-radius: 99px; margin: 0 4px; text-transform: capitalize; font-size: .85rem; }
+.stat { display: grid; grid-template-columns: 110px 1fr 40px; gap: 8px; align-items: center; margin: 6px 0; text-align: left; font-size: .9rem; text-transform: capitalize; }
+.bar { background: #e9ecef; height: 10px; border-radius: 99px; overflow: hidden; }
+.bar span { display: block; height: 100%; background: #f59f00; }
+</style>
+</head>
+<body>
+  <main class="card">
+    <h1>Mini Pokédex</h1>
+    <form id="form">
+      <input id="name" placeholder="Name or number (e.g. pikachu, 25)" required>
+      <button id="searchBtn" type="submit">Search</button>
+    </form>
+    <div id="status" class="status"></div>
+    <section id="result"></section>
+  </main>
+  <script>
+const form = document.getElementById('form');
+const nameInput = document.getElementById('name');
+const searchBtn = document.getElementById('searchBtn');
+const statusEl = document.getElementById('status');
+const resultEl = document.getElementById('result');
+
+async function loadPokemon(query) {
+  statusEl.textContent = 'Searching...';
+  statusEl.className = 'status';
+  searchBtn.disabled = true;
+
+  try {
+    const res = await fetch('https://pokeapi.co/api/v2/pokemon/' + encodeURIComponent(query));
+
+    // This is the key lesson: a 404 does NOT throw by itself!
+    if (res.status === 404) throw new Error('No Pokémon called "' + query + '" was found.');
+    if (!res.ok) throw new Error('HTTP error: ' + res.status);
+
+    const p = await res.json();
+    render(p);
+    statusEl.textContent = '';
+  } catch (err) {
+    resultEl.innerHTML = '';
+    statusEl.textContent = err.message;
+    statusEl.className = 'status error';
+  } finally {
+    searchBtn.disabled = false;
+  }
+}
+
+function render(p) {
+  const sprite = p.sprites.other['official-artwork'].front_default || p.sprites.front_default;
+  resultEl.innerHTML = '';
+
+  const img = document.createElement('img');
+  img.className = 'sprite';
+  img.src = sprite;
+  img.alt = p.name;
+
+  const h = document.createElement('h2');
+  h.className = 'pname';
+  h.textContent = '#' + p.id + ' ' + p.name;
+
+  const types = document.createElement('div');
+  types.className = 'types';
+  p.types.forEach(t => {
+    const span = document.createElement('span');
+    span.className = 'type';
+    span.textContent = t.type.name;
+    types.appendChild(span);
+  });
+
+  resultEl.append(img, h, types);
+
+  p.stats.forEach(s => {
+    const row = document.createElement('div');
+    row.className = 'stat';
+    const label = document.createElement('span');
+    label.textContent = s.stat.name.replace('-', ' ');
+    const bar = document.createElement('div');
+    bar.className = 'bar';
+    const fill = document.createElement('span');
+    fill.style.width = Math.min(100, (s.base_stat / 150) * 100) + '%';
+    bar.appendChild(fill);
+    const val = document.createElement('span');
+    val.textContent = s.base_stat;
+    row.append(label, bar, val);
+    resultEl.appendChild(row);
+  });
+}
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const q = nameInput.value.trim().toLowerCase();
+  if (q) loadPokemon(q);
+});
+
+loadPokemon('pikachu');
+</script>
+</body>
+</html>

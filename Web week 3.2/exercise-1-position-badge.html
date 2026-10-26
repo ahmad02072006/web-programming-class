@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Exercise 1: Position the Badge</title>
+<style>
+  body { font-family: sans-serif; background: #f8f9fa; }
+
+  .card {
+    width: 280px;
+    height: 180px;
+    background: white;
+    border: 2px solid #14b8a6;
+    border-radius: 12px;
+    position: relative;   /* creates the positioned ancestor for the badge */
+    margin: 40px;
+  }
+  .badge {
+    position: absolute;   /* positioned relative to .card */
+    top: -12px;
+    right: 16px;
+    background: #0f766e;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 20px;  /* pill shape */
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">SALE</span>
+    <p style="padding:16px;color:#0f766e;font-weight:bold">Card content here</p>
+  </div>
+</body>
+</html>

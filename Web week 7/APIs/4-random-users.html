@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random User Cards</title>
+  <style>
+* { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; margin: 0; padding: 24px; background: #fdf6ec; color: #222; }
+header { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+h1 { margin: 0 auto 0 0; font-size: 1.5rem; }
+select { padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+button { background: #e8590c; color: #fff; border: 0; padding: 10px 18px; border-radius: 8px; cursor: pointer; }
+button:disabled { opacity: .5; }
+.status { min-height: 24px; margin-bottom: 8px; color: #555; }
+.status.error { color: #d93025; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.user { background: #fff; border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,.07); }
+.user img { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; }
+.user h3 { margin: 12px 0 4px; }
+.user p { margin: 2px 0; color: #555; font-size: .9rem; word-break: break-word; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Random User Cards</h1>
+    <select id="count">
+      <option value="3">3 users</option>
+      <option value="6" selected>6 users</option>
+      <option value="12">12 users</option>
+    </select>
+    <button id="loadBtn">Generate</button>
+  </header>
+  <div id="status" class="status"></div>
+  <section id="users" class="grid"></section>
+  <script>
+const usersEl = document.getElementById('users');
+const statusEl = document.getElementById('status');
+const loadBtn = document.getElementById('loadBtn');
+const countEl = document.getElementById('count');
+
+async function loadUsers() {
+  statusEl.textContent = 'Loading users...';
+  statusEl.className = 'status';
+  loadBtn.disabled = true;
+
+  try {
+    const res = await fetch('https://randomuser.me/api/?results=' + countEl.value);
+    if (!res.ok) throw new Error('HTTP error: ' + res.status);
+    const data = await res.json();
+    render(data.results);
+    statusEl.textContent = '';
+  } catch (err) {
+    statusEl.textContent = 'Could not load users. ' + err.message;
+    statusEl.className = 'status error';
+  } finally {
+    loadBtn.disabled = false;
+  }
+}
+
+function render(users) {
+  usersEl.innerHTML = '';
+  users.forEach(u => {
+    const card = document.createElement('article');
+    card.className = 'user';
+
+    const img = document.createElement('img');
+    img.src = u.picture.large;
+    img.alt = u.name.first + ' ' + u.name.last;
+
+    const name = document.createElement('h3');
+    name.textContent = u.name.first + ' ' + u.name.last;
+
+    const email = document.createElement('p');
+    email.textContent = u.email;
+
+    const loc = document.createElement('p');
+    loc.textContent = u.location.city + ', ' + u.location.country;
+
+    const phone = document.createElement('p');
+    phone.textContent = u.phone;
+
+    card.append(img, name, email, loc, phone);
+    usersEl.appendChild(card);
+  });
+}
+
+loadBtn.addEventListener('click', loadUsers);
+loadUsers();
+</script>
+</body>
+</html>

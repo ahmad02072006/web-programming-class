@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DOM Greeting | Week 4</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="../index.html">Home</a>
+    <a href="../week2/index.html">Week 2</a>
+    <a href="../week3/index.html">Week 3</a>
+    <a href="index.html" aria-current="page">Week 4</a>
+    <a href="../week5/index.html">Week 5</a>
+    <a href="../week7/index.html">Week 7</a>
+  </nav>
+  <main class="page-shell">
+    <p class="instruction">Instructions: Enter your name and submit the form or press Enter to update the greeting.</p>
+    <a class="back-link" href="index.html">← Back to Week 4</a>
+    <h1>DOM greeting</h1>
+    <section class="panel">
+      <form id="greeting-form" novalidate>
+        <div class="form-row">
+          <label for="name">Your name</label>
+          <input id="name" type="text" placeholder="e.g., Grace Hopper">
+        </div>
+        <div class="button-row">
+          <button class="button" type="submit">Show greeting</button>
+          <button class="button button-secondary" type="reset">Reset</button>
+        </div>
+        <p class="message error" id="error" role="alert"></p>
+        <p class="result" id="greeting" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+  <script>
+    const form = document.querySelector('#greeting-form');
+    const input = document.querySelector('#name');
+    const error = document.querySelector('#error');
+    const greeting = document.querySelector('#greeting');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = input.value.trim();
+      if (!name) {
+        error.textContent = 'Please enter your name.';
+        greeting.textContent = '';
+        return;
+      }
+      error.textContent = '';
+      greeting.textContent = `Hello, ${name}! Welcome to JavaScript.`;
+    });
+
+    form.addEventListener('reset', () => {
+      error.textContent = '';
+      greeting.textContent = '';
+    });
+  </script>
+</body>
+</html>

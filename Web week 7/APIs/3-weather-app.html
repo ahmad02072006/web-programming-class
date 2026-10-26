@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Korea Weather</title>
+  <style>
+* { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; margin: 0; min-height: 100vh; display: grid; place-items: center; background: linear-gradient(160deg, #4facfe, #00c6fb); padding: 16px; }
+.card { background: rgba(255,255,255,.95); width: 100%; max-width: 520px; padding: 28px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,.15); }
+h1 { margin-top: 0; text-align: center; }
+select { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #ccc; font-size: 1rem; }
+.status { min-height: 24px; text-align: center; margin: 10px 0; color: #555; }
+.status.error { color: #d93025; }
+.current { text-align: center; }
+.temp { font-size: 3.5rem; font-weight: 700; }
+.desc { font-size: 1.2rem; color: #333; }
+.meta { color: #666; margin-top: 6px; }
+.forecast { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 10px; margin-top: 20px; }
+.day { background: #eef6ff; border-radius: 12px; padding: 10px; text-align: center; font-size: .9rem; }
+.day strong { display: block; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+  <main class="card">
+    <h1>Korea Weather</h1>
+    <select id="city">
+      <option value="37.57,126.98,Seoul">Seoul</option>
+      <option value="37.42,127.13,Seongnam">Seongnam</option>
+      <option value="35.18,129.08,Busan">Busan</option>
+      <option value="33.50,126.53,Jeju">Jeju</option>
+    </select>
+    <div id="status" class="status"></div>
+    <section id="current" class="current"></section>
+    <section id="forecast" class="forecast"></section>
+  </main>
+  <script>
+const citySelect = document.getElementById('city');
+const statusEl = document.getElementById('status');
+const currentEl = document.getElementById('current');
+const forecastEl = document.getElementById('forecast');
+
+// WMO weather codes used by Open-Meteo
+const WEATHER = {
+  0: 'Clear sky ☀️', 1: 'Mostly clear 🌤️', 2: 'Partly cloudy ⛅', 3: 'Overcast ☁️',
+  45: 'Fog 🌫️', 48: 'Rime fog 🌫️',
+  51: 'Light drizzle 🌦️', 53: 'Drizzle 🌦️', 55: 'Heavy drizzle 🌧️',
+  61: 'Light rain 🌧️', 63: 'Rain 🌧️', 65: 'Heavy rain 🌧️',
+  71: 'Light snow 🌨️', 73: 'Snow 🌨️', 75: 'Heavy snow ❄️',
+  80: 'Rain showers 🌦️', 81: 'Rain showers 🌧️', 82: 'Violent showers ⛈️',
+  95: 'Thunderstorm ⛈️', 96: 'Thunderstorm + hail ⛈️', 99: 'Thunderstorm + hail ⛈️'
+};
+
+async function loadWeather() {
+  const [lat, lon, name] = citySelect.value.split(',');
+  const url = 'https://api.open-meteo.com/v1/forecast'
+    + '?latitude=' + lat + '&longitude=' + lon
+    + '&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code'
+    + '&daily=temperature_2m_max,temperature_2m_min,weather_code'
+    + '&timezone=Asia%2FSeoul&forecast_days=5';
+
+  statusEl.textContent = 'Loading weather for ' + name + '...';
+  statusEl.className = 'status';
+  citySelect.disabled = true;
+
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP error: ' + res.status);
+    const data = await res.json();
+    render(name, data);
+    statusEl.textContent = '';
+  } catch (err) {
+    statusEl.textContent = 'Could not load weather. ' + err.message;
+    statusEl.className = 'status error';
+  } finally {
+    citySelect.disabled = false;
+  }
+}
+
+function render(name, data) {
+  const c = data.current;
+  currentEl.innerHTML =
+    '<h2>' + name + '</h2>' +
+    '<div class="temp">' + Math.round(c.temperature_2m) + '°C</div>' +
+    '<div class="desc">' + (WEATHER[c.weather_code] || 'Unknown') + '</div>' +
+    '<div class="meta">Humidity ' + c.relative_humidity_2m + '% · Wind ' + c.wind_speed_10m + ' km/h</div>';
+
+  forecastEl.innerHTML = '';
+  const d = data.daily;
+  d.time.forEach((date, i) => {
+    const day = new Date(date + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short' });
+    const el = document.createElement('div');
+    el.className = 'day';
+    el.innerHTML = '<strong>' + day + '</strong>' +
+      (WEATHER[d.weather_code[i]] || '').split(' ').pop() + '<br>' +
+      Math.round(d.temperature_2m_max[i]) + '° / ' + Math.round(d.temperature_2m_min[i]) + '°';
+    forecastEl.appendChild(el);
+  });
+}
+
+citySelect.addEventListener('change', loadWeather);
+loadWeather();
+</script>
+</body>
+</html>

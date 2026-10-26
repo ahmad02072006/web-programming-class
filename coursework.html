@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Akhmad's Web Programming assignments, organized by week.">
+  <title>Web Programming | Coursework</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172d29;
+      --muted: #657570;
+      --paper: #f5f7f3;
+      --card: #fff;
+      --line: #e2e8e1;
+      --green: #176b53;
+      --green-dark: #10513f;
+      --mint: #e4f2eb;
+      --shadow: 0 16px 44px rgb(29 57 46 / 8%);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 90% 0%, #e3f1e9 0, transparent 34rem),
+        var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .shell {
+      width: min(100% - 36px, 1080px);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 24px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 14px;
+      font-weight: 750;
+      letter-spacing: .01em;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border-radius: 11px;
+      color: #fff;
+      background: var(--green);
+      font-size: 17px;
+    }
+
+    .course-label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(30px, 6vw, 64px);
+      border: 1px solid rgb(255 255 255 / 75%);
+      border-radius: 28px;
+      background: linear-gradient(120deg, #fff 10%, #f1f8f3 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      position: absolute;
+      right: -52px;
+      bottom: -135px;
+      width: 300px;
+      height: 300px;
+      border: 1px solid #cfe4d7;
+      border-radius: 50%;
+      box-shadow: 0 0 0 32px rgb(207 228 215 / 24%), 0 0 0 64px rgb(207 228 215 / 17%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 14px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #48a77c;
+      content: "";
+    }
+
+    h1 {
+      max-width: 670px;
+      margin: 0;
+      font-size: clamp(36px, 7vw, 64px);
+      letter-spacing: -.055em;
+      line-height: 1.03;
+    }
+
+    .hero-copy {
+      max-width: 570px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 12px;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      background: rgb(255 255 255 / 80%);
+      color: #40534c;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 40px 0 20px;
+    }
+
+    .toolbar h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -.03em;
+    }
+
+    .search {
+      width: min(100%, 320px);
+      padding: 11px 14px;
+      border: 1px solid #dce5dc;
+      border-radius: 12px;
+      outline: none;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+    }
+
+    .search:focus {
+      border-color: #64a88a;
+      box-shadow: 0 0 0 3px rgb(100 168 138 / 18%);
+    }
+
+    .week {
+      margin: 14px 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--card);
+      box-shadow: 0 8px 24px rgb(29 57 46 / 4%);
+    }
+
+    .week-heading {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 21px 24px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, #fff, #fbfdfb);
+    }
+
+    .week-number {
+      display: grid;
+      flex: 0 0 43px;
+      width: 43px;
+      height: 43px;
+      place-items: center;
+      border-radius: 13px;
+      background: var(--mint);
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .week-heading h3 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -.025em;
+    }
+
+    .week-description {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .week-count {
+      margin-left: auto;
+      padding: 5px 10px;
+      border-radius: 99px;
+      background: #f1f5f1;
+      color: #586861;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .folder {
+      padding: 16px 24px 20px;
+    }
+
+    .folder + .folder { border-top: 1px solid #edf0ec; }
+
+    .folder-title {
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+      margin: 0 0 12px;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .folder-count {
+      color: #84908a;
+      font-size: 12px;
+      font-weight: 550;
+    }
+
+    .file-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .file-link {
+      display: flex;
+      min-height: 44px;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 11px;
+      border: 1px solid #edf0ec;
+      border-radius: 10px;
+      background: #fff;
+      color: #34473f;
+      font-size: 13px;
+      text-decoration: none;
+      transition: border-color .15s ease, background .15s ease, transform .15s ease;
+    }
+
+    .file-link:hover {
+      transform: translateY(-1px);
+      border-color: #b9d8c5;
+      background: #f8fcf9;
+      color: var(--green-dark);
+    }
+
+    .file-icon {
+      display: grid;
+      flex: 0 0 25px;
+      width: 25px;
+      height: 25px;
+      place-items: center;
+      border-radius: 7px;
+      background: #eef5f0;
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 850;
+    }
+
+    .empty-state {
+      display: none;
+      margin: 14px 0;
+      padding: 30px;
+      border: 1px dashed #cbd8ce;
+      border-radius: 16px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      clip-path: inset(50%);
+    }
+
+    footer {
+      padding: 28px 0 36px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 24px, 1080px); }
+      .topbar { padding: 16px 0; }
+      .course-label { display: none; }
+      .hero { border-radius: 21px; }
+      .toolbar { align-items: stretch; flex-direction: column; margin-top: 30px; }
+      .search { width: 100%; }
+      .week-heading, .folder { padding-right: 16px; padding-left: 16px; }
+      .week-heading { gap: 11px; }
+      .week-count { font-size: 11px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="./coursework.html" aria-label="Web Programming coursework home">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span>Web Programming</span>
+      </a>
+      <span class="course-label">Coursework collection</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">Assignments &amp; practice</p>
+        <h1 id="page-title">My web programming work.</h1>
+        <p class="hero-copy">Browse coursework by week. Choose any assignment to open the page, or use search to find a file quickly.</p>
+        <div class="hero-meta" aria-label="Coursework summary">
+          <span class="pill" id="week-summary"></span>
+          <span class="pill" id="file-summary"></span>
+          <span class="pill">↗ Each item opens its original file</span>
+        </div>
+      </section>
+
+      <section aria-labelledby="work-heading">
+        <div class="toolbar">
+          <h2 id="work-heading">Coursework by week</h2>
+          <label>
+            <span class="visually-hidden">Search coursework files</span>
+            <input class="search" id="search" type="search" placeholder="Search assignments and topics…" autocomplete="off">
+          </label>
+        </div>
+        <div id="weeks"></div>
+        <p class="empty-state" id="empty-state">No files match your search. Try another word.</p>
+        <noscript><p>Enable JavaScript to browse the coursework links.</p></noscript>
+      </section>
+    </main>
+
+    <footer>Web Programming · Coursework archive</footer>
+  </div>
+
+  <script>
+    const numberedFiles = (prefix, count, extension = "html", padding = 0) =>
+      Array.from({ length: count }, (_, index) => {
+        const number = String(index + 1).padStart(padding, "0");
+        return `${prefix}${number}.${extension}`;
+      });
+
+    const weeks = [
+      {
+        number: "02",
+        title: "Week 2",
+        description: "HTML foundations and semantic elements",
+        folders: [
+          {
+            title: "Semantic HTML — 25 topics",
+            path: "week 2 web programming/",
+            files: numberedFiles("topic-", 25, "html", 2).map((file, index) => ({
+              file: `${file.slice(0, 8)}-${[
+                "what-is-semantic-html", "page-section-header", "navigation-landmark",
+                "the-main-content", "page-section-footer", "thematic-grouping",
+                "self-contained-content", "tangentially-related-content",
+                "the-non-semantic-container", "self-contained-figure", "caption-for-figure",
+                "machine-readable-dates", "contact-information", "highlighted-text",
+                "abbreviations", "block-quotation", "inline-quotation", "title-of-a-work",
+                "inline-code", "preformatted-text", "disclosure-widget", "popup-modal",
+                "aria-role-attribute", "semantic-landmarks-accessibility",
+                "complete-semantic-page-all-together"
+              ][index]}.html`,
+              label: `Topic ${String(index + 1).padStart(2, "0")} — ${[
+                "What is Semantic HTML?", "Page & Section Header", "Navigation Landmark",
+                "The Main Content", "Page & Section Footer", "Thematic Grouping",
+                "Self-Contained Content", "Tangentially Related Content",
+                "The Non-Semantic Container", "Self-Contained Figure", "Caption for Figure",
+                "Machine-Readable Dates", "Contact Information", "Highlighted Text",
+                "Abbreviations", "Block Quotation", "Inline Quotation", "Title of a Work",
+                "Inline Code", "Preformatted Text", "Disclosure Widget", "Popup / Modal",
+                "ARIA role Attribute", "Semantic Landmarks & Accessibility",
+                "Complete Semantic Page"
+              ][index]}`
+            }))
+          },
+          {
+            title: "HTML fundamentals",
+            path: "web_html_ez-main/",
+            files: [
+              ["heading_and_emphasis.html", "Headings & emphasis"],
+              ["html.sekeletion.html", "HTML skeleton"],
+              ["html_basics_metadata.html", "HTML metadata"],
+              ["img_gallarey.html", "Image gallery"],
+              ["navigationlist.html", "Navigation list"],
+              ["nestedlists.html", "Nested lists"],
+              ["page.html", "HTML page"],
+              ["week2.html", "Week 2 practice"]
+            ].map(([file, label]) => ({ file, label }))
+          }
+        ]
+      },
+      {
+        number: "03",
+        title: "Week 3",
+        description: "Assignments, tasks, and web page exercises",
+        folders: [
+          {
+            title: "Week 3 assignments",
+            path: "Akhmad Web week 3/",
+            files: numberedFiles("assignment", 8).map((file, index) => ({
+              file,
+              label: `Assignment ${index + 1}`
+            }))
+          },
+          {
+            title: "Web assignment 2",
+            path: "Akhmad Web week 3/web assignment 2/",
+            files: numberedFiles("task", 8).map((file, index) => ({
+              file,
+              label: `Task ${index + 1}`
+            }))
+          },
+          {
+            title: "Web programming 1",
+            path: "Akhmad Web week 3/web programming 1/",
+            files: numberedFiles("assignment", 8).map((file, index) => ({
+              file,
+              label: `Assignment ${index + 1}`
+            }))
+          },
+          {
+            title: "Web programming 3",
+            path: "Akhmad Web week 3/web-programming 3/",
+            files: numberedFiles("task", 8).flatMap((file, index) => [
+              { file, label: `Task ${index + 1}` },
+              { file: `style${index + 1}.css`, label: `Task ${index + 1} stylesheet`, kind: "CSS" }
+            ])
+          }
+        ]
+      },
+      {
+        number: "↗",
+        title: "Extra practice",
+        description: "Additional Week 3 exercises and guide topics",
+        folders: [
+          {
+            title: "CSS & layout exercises",
+            path: "Akhmad Web Programming W3 Friday/",
+            files: [
+              ["exercise-1-position-badge.html", "Position badge"],
+              ["exercise-2-hover-card.html", "Hover card"],
+              ["exercise-3-loading-spinner.html", "Loading spinner"],
+              ["exercise-4-css-variables-theme.html", "CSS variables theme"],
+              ["exercise-5-fixed-nav-bar.html", "Fixed navigation bar"],
+              ["exercise-6-responsive-grid.html", "Responsive grid"],
+              ["exercise-7-portfolio-page.html", "Portfolio page"]
+            ].map(([file, label]) => ({ file, label }))
+          },
+          {
+            title: "Guide files — 15 topics",
+            path: "Akhmad Web Programming W3 Friday/Guide files/",
+            files: numberedFiles("topic-", 15, "html", 2).map((file, index) => ({
+              file,
+              label: `Guide topic ${String(index + 1).padStart(2, "0")}`
+            }))
+          }
+        ]
+      }
+    ];
+
+    const weeksContainer = document.querySelector("#weeks");
+    const searchInput = document.querySelector("#search");
+    const emptyState = document.querySelector("#empty-state");
+    let totalFiles = 0;
+
+    for (const week of weeks) {
+      const weekElement = document.createElement("section");
+      weekElement.className = "week";
+      weekElement.dataset.search = `${week.title} ${week.description}`.toLowerCase();
+
+      const totalInWeek = week.folders.reduce((sum, folder) => sum + folder.files.length, 0);
+      totalFiles += totalInWeek;
+
+      const heading = document.createElement("div");
+      heading.className = "week-heading";
+      heading.innerHTML = `
+        <span class="week-number" aria-hidden="true">${week.number}</span>
+        <div>
+          <h3>${week.title}</h3>
+          <p class="week-description">${week.description}</p>
+        </div>
+        <span class="week-count">${totalInWeek} files</span>
+      `;
+      weekElement.append(heading);
+
+      for (const folder of week.folders) {
+        const folderElement = document.createElement("section");
+        folderElement.className = "folder";
+        folderElement.dataset.search = folder.title.toLowerCase();
+
+        const folderHeading = document.createElement("h4");
+        folderHeading.className = "folder-title";
+        folderHeading.innerHTML = `${folder.title} <span class="folder-count">${folder.files.length} files</span>`;
+        folderElement.append(folderHeading);
+
+        const list = document.createElement("ul");
+        list.className = "file-list";
+
+        for (const entry of folder.files) {
+          const item = document.createElement("li");
+          const link = document.createElement("a");
+          link.className = "file-link";
+          link.href = `${folder.path}${entry.file}`;
+          link.dataset.search = `${entry.label} ${entry.file}`.toLowerCase();
+
+          const icon = document.createElement("span");
+          icon.className = "file-icon";
+          icon.setAttribute("aria-hidden", "true");
+          icon.textContent = entry.kind || "HTML";
+
+          const label = document.createElement("span");
+          label.textContent = entry.label;
+          link.append(icon, label);
+          item.append(link);
+          list.append(item);
+        }
+
+        folderElement.append(list);
+        weekElement.append(folderElement);
+      }
+
+      weeksContainer.append(weekElement);
+    }
+
+    document.querySelector("#week-summary").textContent = `${weeks.length} sections`;
+    document.querySelector("#file-summary").textContent = `${totalFiles} files`;
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleWeeks = 0;
+
+      for (const weekElement of weeksContainer.querySelectorAll(".week")) {
+        let visibleFiles = 0;
+
+        for (const folderElement of weekElement.querySelectorAll(".folder")) {
+          let visibleInFolder = 0;
+          for (const item of folderElement.querySelectorAll("li")) {
+            const link = item.querySelector("a");
+            const matches = !query || `${link.dataset.search} ${folderElement.dataset.search} ${weekElement.dataset.search}`.includes(query);
+            item.hidden = !matches;
+            if (matches) visibleInFolder += 1;
+          }
+          folderElement.hidden = visibleInFolder === 0;
+          visibleFiles += visibleInFolder;
+        }
+
+        weekElement.hidden = visibleFiles === 0;
+        if (visibleFiles > 0) visibleWeeks += 1;
+      }
+
+      emptyState.style.display = visibleWeeks === 0 ? "block" : "none";
+    });
+  </script>
+</body>
+</html>

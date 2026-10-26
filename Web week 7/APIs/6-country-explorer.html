@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Country Explorer</title>
+  <style>
+* { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; margin: 0; padding: 24px; background: #f1f5f9; color: #222; }
+main { max-width: 860px; margin: 0 auto; }
+form { display: flex; gap: 8px; margin-bottom: 12px; }
+input { flex: 1; padding: 10px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; }
+button { background: #1971c2; color: #fff; border: 0; padding: 10px 18px; border-radius: 8px; cursor: pointer; }
+button:disabled { opacity: .5; }
+.status { min-height: 24px; margin-bottom: 8px; color: #555; }
+.status.error { color: #d93025; }
+.hidden { display: none; }
+table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eee; }
+th { background: #e7f0fa; cursor: pointer; user-select: none; }
+td img { width: 48px; height: auto; border: 1px solid #ddd; border-radius: 3px; display: block; }
+</style>
+</head>
+<body>
+  <main>
+    <h1>Country Explorer</h1>
+    <form id="form">
+      <input id="query" placeholder="Search a country (e.g. korea, japan, france)" required>
+      <button id="searchBtn" type="submit">Search</button>
+    </form>
+    <div id="status" class="status"></div>
+    <table id="table" class="hidden">
+      <thead>
+        <tr><th>Flag</th><th data-key="name">Country</th><th data-key="capital">Capital</th><th data-key="region">Region</th><th data-key="population">Population &#8645;</th></tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </main>
+  <script>
+const form = document.getElementById('form');
+const queryEl = document.getElementById('query');
+const searchBtn = document.getElementById('searchBtn');
+const statusEl = document.getElementById('status');
+const table = document.getElementById('table');
+const tbody = document.getElementById('tbody');
+
+let countries = [];
+let sortKey = 'population';
+let sortAsc = false;
+
+async function searchCountries(query) {
+  statusEl.textContent = 'Searching...';
+  statusEl.className = 'status';
+  searchBtn.disabled = true;
+
+  try {
+    const url = 'https://restcountries.com/v3.1/name/' + encodeURIComponent(query)
+      + '?fields=name,capital,region,population,flags';
+    const res = await fetch(url);
+    if (res.status === 404) throw new Error('No countries found for "' + query + '".');
+    if (!res.ok) throw new Error('HTTP error: ' + res.status);
+
+    const data = await res.json();
+    countries = data.map(c => ({
+      flag: c.flags.png,
+      flagAlt: c.flags.alt || 'Flag of ' + c.name.common,
+      name: c.name.common,
+      capital: (c.capital && c.capital[0]) || '—',
+      region: c.region,
+      population: c.population
+    }));
+    sortAndRender();
+    table.classList.remove('hidden');
+    statusEl.textContent = countries.length + ' result(s)';
+  } catch (err) {
+    table.classList.add('hidden');
+    statusEl.textContent = err.message;
+    statusEl.className = 'status error';
+  } finally {
+    searchBtn.disabled = false;
+  }
+}
+
+function sortAndRender() {
+  countries.sort((a, b) => {
+    const x = a[sortKey], y = b[sortKey];
+    const r = typeof x === 'number' ? x - y : String(x).localeCompare(String(y));
+    return sortAsc ? r : -r;
+  });
+  tbody.innerHTML = '';
+  countries.forEach(c => {
+    const tr = document.createElement('tr');
+
+    const tdFlag = document.createElement('td');
+    const img = document.createElement('img');
+    img.src = c.flag;
+    img.alt = c.flagAlt;
+    tdFlag.appendChild(img);
+
+    tr.appendChild(tdFlag);
+    [c.name, c.capital, c.region, c.population.toLocaleString()].forEach(text => {
+      const td = document.createElement('td');
+      td.textContent = text;
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+document.querySelectorAll('th[data-key]').forEach(th => {
+  th.addEventListener('click', () => {
+    const key = th.dataset.key;
+    sortAsc = key === sortKey ? !sortAsc : true;
+    sortKey = key;
+    sortAndRender();
+  });
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const q = queryEl.value.trim();
+  if (q) searchCountries(q);
+});
+
+searchCountries('korea');
+</script>
+</body>
+</html>

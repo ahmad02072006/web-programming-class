@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fetch a Joke | Week 7</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="../index.html">Home</a>
+    <a href="../week2/index.html">Week 2</a>
+    <a href="../week3/index.html">Week 3</a>
+    <a href="../week4/index.html">Week 4</a>
+    <a href="../week5/index.html">Week 5</a>
+    <a href="index.html" aria-current="page">Week 7</a>
+  </nav>
+  <main class="page-shell">
+    <p class="instruction">Instructions: Pick general, programming, or knock-knock, then press Enter or Search to fetch a joke.</p>
+    <a class="back-link" href="index.html">← Back to Week 7</a>
+    <h1>Fetch a joke</h1>
+    <section class="panel">
+      <form id="joke-form" novalidate>
+        <div class="form-row">
+          <label for="category">Joke category</label>
+          <input id="category" type="text" placeholder="e.g., programming">
+        </div>
+        <div class="button-row">
+          <button class="button" id="search" type="submit">Search</button>
+          <button class="button button-secondary" id="reset" type="reset">Reset</button>
+        </div>
+        <p class="message error" id="error" role="alert"></p>
+        <p class="message" id="status" aria-live="polite"></p>
+        <article class="result" id="joke-result" aria-live="polite"></article>
+      </form>
+    </section>
+  </main>
+  <script>
+    const form = document.querySelector('#joke-form');
+    const input = document.querySelector('#category');
+    const searchButton = document.querySelector('#search');
+    const error = document.querySelector('#error');
+    const status = document.querySelector('#status');
+    const result = document.querySelector('#joke-result');
+    const categories = ['general', 'programming', 'knock-knock'];
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const category = input.value.trim().toLowerCase();
+      result.replaceChildren();
+      status.textContent = '';
+      error.textContent = '';
+      if (!category) {
+        error.textContent = 'Please enter a joke category.';
+        return;
+      }
+      if (!categories.includes(category)) {
+        error.textContent = 'Choose general, programming, or knock-knock.';
+        return;
+      }
+
+      searchButton.disabled = true;
+      status.textContent = 'Loading a joke…';
+      try {
+        const response = await fetch(`https://official-joke-api.appspot.com/jokes/${encodeURIComponent(category)}/random`);
+        if (!response.ok) {
+          throw new Error(`The service responded with status ${response.status}.`);
+        }
+        const jokes = await response.json();
+        const joke = Array.isArray(jokes) ? jokes[0] : jokes;
+        if (!joke || typeof joke.setup !== 'string' || typeof joke.punchline !== 'string') {
+          throw new Error('The service returned an unexpected response.');
+        }
+        const setup = document.createElement('h2');
+        setup.textContent = joke.setup;
+        const punchline = document.createElement('p');
+        punchline.textContent = joke.punchline;
+        result.append(setup, punchline);
+      } catch (requestError) {
+        error.textContent = `Could not load a joke. ${requestError.message} Check your connection and try again.`;
+      } finally {
+        status.textContent = '';
+        searchButton.disabled = false;
+      }
+    });
+
+    form.addEventListener('reset', () => {
+      error.textContent = '';
+      status.textContent = '';
+      result.replaceChildren();
+    });
+  </script>
+</body>
+</html>

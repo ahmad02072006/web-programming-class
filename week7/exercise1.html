@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search a User | Week 7</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="../index.html">Home</a>
+    <a href="../week2/index.html">Week 2</a>
+    <a href="../week3/index.html">Week 3</a>
+    <a href="../week4/index.html">Week 4</a>
+    <a href="../week5/index.html">Week 5</a>
+    <a href="index.html" aria-current="page">Week 7</a>
+  </nav>
+  <main class="page-shell">
+    <p class="instruction">Instructions: Enter a JSONPlaceholder username such as Bret or Antonette and press Enter or Search.</p>
+    <a class="back-link" href="index.html">← Back to Week 7</a>
+    <h1>Search a user</h1>
+    <section class="panel">
+      <form id="search-form" novalidate>
+        <div class="form-row">
+          <label for="username">Username</label>
+          <input id="username" type="text" placeholder="e.g., Bret" autocomplete="off">
+        </div>
+        <div class="button-row">
+          <button class="button" id="search" type="submit">Search</button>
+          <button class="button button-secondary" id="reset" type="reset">Reset</button>
+        </div>
+        <p class="message error" id="error" role="alert"></p>
+        <p class="message" id="status" aria-live="polite"></p>
+        <article class="result" id="user-result" aria-live="polite"></article>
+      </form>
+    </section>
+  </main>
+  <script>
+    const form = document.querySelector('#search-form');
+    const input = document.querySelector('#username');
+    const searchButton = document.querySelector('#search');
+    const error = document.querySelector('#error');
+    const status = document.querySelector('#status');
+    const result = document.querySelector('#user-result');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const username = input.value.trim();
+      result.replaceChildren();
+      status.textContent = '';
+      error.textContent = '';
+      if (!username) {
+        error.textContent = 'Please enter a username to search.';
+        return;
+      }
+
+      searchButton.disabled = true;
+      status.textContent = 'Loading user…';
+      try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/users?username=${encodeURIComponent(username)}`);
+        if (!response.ok) {
+          throw new Error(`The service responded with status ${response.status}.`);
+        }
+        const users = await response.json();
+        const user = users[0];
+        if (!user) {
+          error.textContent = `No user was found for “${username}”. Check the spelling and try again.`;
+          return;
+        }
+        const name = document.createElement('h2');
+        name.textContent = user.name;
+        const usernameLine = document.createElement('p');
+        usernameLine.textContent = `Username: ${user.username}`;
+        const email = document.createElement('p');
+        email.textContent = `Email: ${user.email}`;
+        result.append(name, usernameLine, email);
+      } catch (requestError) {
+        error.textContent = `Could not load the user. ${requestError.message} Check your connection and try again.`;
+      } finally {
+        status.textContent = '';
+        searchButton.disabled = false;
+      }
+    });
+
+    form.addEventListener('reset', () => {
+      error.textContent = '';
+      status.textContent = '';
+      result.replaceChildren();
+    });
+  </script>
+</body>
+</html>

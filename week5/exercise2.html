@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Counter App | Week 5</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="../index.html">Home</a>
+    <a href="../week2/index.html">Week 2</a>
+    <a href="../week3/index.html">Week 3</a>
+    <a href="../week4/index.html">Week 4</a>
+    <a href="index.html" aria-current="page">Week 5</a>
+    <a href="../week7/index.html">Week 7</a>
+  </nav>
+  <main class="page-shell">
+    <p class="instruction">Instructions: Set a starting value, press Enter or Set count, then use Add 1 to increase the counter.</p>
+    <a class="back-link" href="index.html">← Back to Week 5</a>
+    <h1>Counter app</h1>
+    <section class="panel">
+      <form id="start-form" novalidate>
+        <div class="form-row">
+          <label for="start-value">Starting value (−9999 to 9999)</label>
+          <input id="start-value" type="number" min="-9999" max="9999" step="1" placeholder="e.g., 0">
+        </div>
+        <div class="button-row">
+          <button class="button" type="submit">Set count</button>
+          <button class="button button-secondary" id="add-one" type="button">Add 1</button>
+          <button class="button button-secondary" id="reset" type="reset">Reset</button>
+        </div>
+        <p class="message error" id="error" role="alert"></p>
+      </form>
+      <p class="counter-display" id="count" aria-live="polite">0</p>
+    </section>
+  </main>
+  <script>
+    const form = document.querySelector('#start-form');
+    const input = document.querySelector('#start-value');
+    const error = document.querySelector('#error');
+    const countDisplay = document.querySelector('#count');
+    let count = 0;
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const value = Number(input.value);
+      if (!input.value.trim() || !Number.isInteger(value) || value < -9999 || value > 9999) {
+        error.textContent = 'Enter a whole number from −9999 to 9999.';
+        return;
+      }
+      count = value;
+      countDisplay.textContent = String(count);
+      error.textContent = '';
+    });
+
+    document.querySelector('#add-one').addEventListener('click', () => {
+      count += 1;
+      countDisplay.textContent = String(count);
+      error.textContent = '';
+    });
+
+    form.addEventListener('reset', () => {
+      count = 0;
+      countDisplay.textContent = '0';
+      error.textContent = '';
+    });
+  </script>
+</body>
+</html>
