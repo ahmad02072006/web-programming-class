@@ -14,9 +14,6 @@ Solutions for the 7 practice exercises from the *CSS Advanced — Week 3 Friday 
 | `exercise-6-responsive-grid.html` | E6 | CSS Grid, `::before`, media queries | Advanced |
 | `exercise-7-portfolio-page.html` | E7 | All techniques combined (portfolio page) | Advanced |
 
-**Note:** Exercise 7 uses placeholder text (`YOUR NAME`, `[Your Major]`) — replace these with
-your own name and major before submitting/pushing.
-
 ## How to view
 Just open any `.html` file in a browser, or use a live server extension in VS Code
 (e.g. "Live Server") for auto-reload while editing.
