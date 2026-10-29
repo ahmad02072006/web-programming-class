@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Me</title>
+  <style>
+    :root {
+      --bg: #f3f5fb;
+      --card: #ffffff;
+      --ink: #1f2540;
+      --muted: #6b7190;
+      --line: #d5d9e8;
+      --accent: #4a5cf0;
+      --good: #1f9d63;
+      --bad: #d63c3c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 32px 16px 64px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .page { max-width: 560px; margin: 0 auto; }
+    .student-details { max-width: 560px; margin: 0 auto 20px; color: var(--muted); font-size: 0.88rem; }
+    .student-details p { margin: 0; }
+    h1 { margin: 0 0 4px; font-size: 1.9rem; }
+    .sub { margin: 0 0 24px; color: var(--muted); }
+
+    form {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 30px rgba(31, 37, 64, 0.08);
+    }
+
+    .field { margin-bottom: 18px; }
+
+    label { display: block; margin-bottom: 4px; font-weight: 600; font-size: 0.92rem; }
+    .req { color: var(--bad); }
+    .hint { font-weight: 400; color: var(--muted); font-size: 0.82rem; }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      font: inherit;
+      color: inherit;
+      background: #fff;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    textarea { min-height: 140px; resize: vertical; }
+
+    input:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(74, 92, 240, 0.18);
+    }
+
+    /* ---- :valid and :invalid styling ---- */
+    input:not(:placeholder-shown):valid,
+    textarea:not(:placeholder-shown):valid   { border-color: var(--good); }
+
+    input:not(:placeholder-shown):invalid,
+    textarea:not(:placeholder-shown):invalid { border-color: var(--bad); }
+
+    .row { display: flex; justify-content: space-between; gap: 12px; }
+    .error { min-height: 1.2em; margin: 4px 0 0; color: var(--bad); font-size: 0.82rem; }
+    .counter { margin: 4px 0 0; color: var(--muted); font-size: 0.82rem; white-space: nowrap; }
+    .counter.warn { color: var(--bad); font-weight: 600; }
+
+    button {
+      width: 100%;
+      padding: 13px 22px;
+      font: inherit;
+      font-weight: 700;
+      color: #fff;
+      background: var(--accent);
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover { filter: brightness(1.08); }
+
+    .success {
+      margin-top: 24px;
+      padding: 18px 22px;
+      background: #e8f7ef;
+      border: 2px solid var(--good);
+      border-radius: 14px;
+      color: #14573a;
+    }
+    .success strong { color: var(--good); }
+
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <header class="student-details">
+    <p>Name: Ochilov Akhmadjon</p>
+    <p>Student ID: 202539468</p>
+  </header>
+  <div class="page">
+    <h1>Contact Me</h1>
+    <p class="sub">Send me a message and I will reply as soon as I can. Fields marked <span class="req">*</span> are required.</p>
+
+    <form id="contactForm" action="https://httpbin.org/post" method="POST">
+
+      <div class="field">
+        <label for="name">Name <span class="req">*</span></label>
+        <input type="text" id="name" name="name" placeholder="Your full name"
+               required minlength="2" maxlength="50"
+               pattern="[A-Za-zÀ-ɏ' .\-]+"
+               title="Letters, spaces, apostrophes and hyphens only"
+               autocomplete="name">
+        <p class="error" id="name-error"></p>
+      </div>
+
+      <div class="field">
+        <label for="email">Email <span class="req">*</span></label>
+        <input type="email" id="email" name="email" placeholder="you@example.com"
+               required autocomplete="email">
+        <p class="error" id="email-error"></p>
+      </div>
+
+      <div class="field">
+        <label for="subject">Subject <span class="req">*</span> <span class="hint">(3 to 80 characters)</span></label>
+        <input type="text" id="subject" name="subject" placeholder="What is this about?"
+               required minlength="3" maxlength="80">
+        <p class="error" id="subject-error"></p>
+      </div>
+
+      <div class="field">
+        <label for="message">Message <span class="req">*</span> <span class="hint">(10 to 500 characters)</span></label>
+        <textarea id="message" name="message" placeholder="Write your message here..."
+                  required minlength="10" maxlength="500"></textarea>
+        <div class="row">
+          <p class="error" id="message-error"></p>
+          <p class="counter" id="counter">0 / 500</p>
+        </div>
+      </div>
+
+      <button type="submit">Send message</button>
+    </form>
+
+    <section class="success" id="success" hidden aria-live="polite">
+      <strong>Message ready ✓</strong>
+      <p id="successText"></p>
+    </section>
+  </div>
+
+  <script>
+    const form = document.getElementById("contactForm");
+    const success = document.getElementById("success");
+    const successText = document.getElementById("successText");
+    const counter = document.getElementById("counter");
+
+    const fields = [...form.querySelectorAll("input, textarea")];
+
+    const messages = {
+      name: {
+        valueMissing: "Please enter your name.",
+        tooShort: "Name needs at least 2 characters.",
+        patternMismatch: "Name can only contain letters, spaces, apostrophes and hyphens."
+      },
+      email: {
+        valueMissing: "Please enter your email.",
+        typeMismatch: "Enter a valid email like name@example.com."
+      },
+      subject: {
+        valueMissing: "Please add a subject.",
+        tooShort: "Subject needs at least 3 characters."
+      },
+      message: {
+        valueMissing: "Please write a message.",
+        tooShort: "Message needs at least 10 characters."
+      }
+    };
+
+    function showError(field) {
+      const box = document.getElementById(field.id + "-error");
+      if (field.validity.valid) {
+        box.textContent = "";
+        return;
+      }
+      const table = messages[field.id] || {};
+      const type = Object.keys(table).find((key) => field.validity[key]);
+      box.textContent = field.validity.customError
+        ? field.validationMessage
+        : (type ? table[type] : field.validationMessage);
+    }
+
+    function check(field) {
+      field.setCustomValidity("");
+
+      // extra JavaScript rules on top of the HTML attributes
+      if (field.id === "email" && field.value && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(field.value)) {
+        field.setCustomValidity("Email needs a domain, like name@example.com.");
+      }
+      if ((field.id === "subject" || field.id === "message") && field.value.length > 0 && field.value.trim() === "") {
+        field.setCustomValidity("This field can't be only spaces.");
+      }
+
+      showError(field);
+    }
+
+    fields.forEach((field) => {
+      field.addEventListener("blur", () => {
+        field.dataset.touched = "1";
+        check(field);
+      });
+      field.addEventListener("input", () => {
+        if (field.dataset.touched || field.value !== "") check(field);
+      });
+    });
+
+    /* live character counter */
+    const message = document.getElementById("message");
+    function updateCounter() {
+      const left = message.maxLength - message.value.length;
+      counter.textContent = `${message.value.length} / ${message.maxLength}`;
+      counter.classList.toggle("warn", left <= 25);
+    }
+    message.addEventListener("input", updateCounter);
+    updateCounter();
+
+    form.addEventListener("submit", (event) => {
+      fields.forEach((field) => {
+        field.dataset.touched = "1";
+        check(field);
+      });
+
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        success.hidden = true;
+        fields.find((field) => !field.validity.valid).focus();
+        return;
+      }
+
+      // GitHub Pages has no server, so show a confirmation instead of sending.
+      // (To really POST to the action URL, delete the next line.)
+      event.preventDefault();
+
+      const who = document.getElementById("name").value.trim();
+      const about = document.getElementById("subject").value.trim();
+      successText.textContent = `Thanks, ${who}! Your message "${about}" passed all checks.`;
+      success.hidden = false;
+      form.reset();
+      fields.forEach((field) => delete field.dataset.touched);
+      updateCounter();
+    });
+  </script>
+</body>
+</html>

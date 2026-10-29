@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Registration Form</title>
+  <style>
+    :root {
+      --bg: #f3f5fb;
+      --card: #ffffff;
+      --ink: #1f2540;
+      --muted: #6b7190;
+      --line: #d5d9e8;
+      --accent: #4a5cf0;
+      --good: #1f9d63;
+      --bad: #d63c3c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 32px 16px 64px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .page { max-width: 640px; margin: 0 auto; }
+    .student-details { max-width: 640px; margin: 0 auto 20px; color: var(--muted); font-size: 0.88rem; }
+    .student-details p { margin: 0; }
+
+    h1 { margin: 0 0 4px; font-size: 1.9rem; }
+    .sub { margin: 0 0 24px; color: var(--muted); }
+
+    form {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 30px rgba(31, 37, 64, 0.08);
+    }
+
+    fieldset {
+      margin: 0 0 22px;
+      padding: 18px 18px 6px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    legend { padding: 0 8px; font-weight: 700; color: var(--accent); }
+
+    .field { margin-bottom: 16px; }
+
+    label { display: block; margin-bottom: 4px; font-weight: 600; font-size: 0.92rem; }
+    .req { color: var(--bad); }
+    .hint { font-weight: 400; color: var(--muted); font-size: 0.82rem; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      font: inherit;
+      color: inherit;
+      background: #fff;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(74, 92, 240, 0.18);
+    }
+
+    /* ---- validation states (assignment requirement 7) ---- */
+    input:not(:placeholder-shown):valid   { border-color: var(--good); }
+    input:not(:placeholder-shown):invalid { border-color: var(--bad); }
+
+    /* date and select have no placeholder, so JS adds .touched after the user interacts */
+    .touched:valid   { border-color: var(--good); }
+    .touched:invalid { border-color: var(--bad); }
+
+    .error {
+      min-height: 1.2em;
+      margin: 4px 0 0;
+      color: var(--bad);
+      font-size: 0.82rem;
+    }
+
+    .check { display: flex; align-items: flex-start; gap: 10px; }
+    .check input { margin-top: 4px; width: 18px; height: 18px; }
+    .check label { margin: 0; font-weight: 500; }
+
+    .range-row { display: flex; align-items: center; gap: 14px; }
+    .range-row input { flex: 1; }
+    output {
+      min-width: 70px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(74, 92, 240, 0.12);
+      color: var(--accent);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .meter { height: 6px; margin-top: 6px; border-radius: 4px; background: var(--line); overflow: hidden; }
+    .meter span { display: block; height: 100%; width: 0; background: var(--bad); transition: width .2s, background .2s; }
+    .meter-text { margin: 4px 0 0; font-size: 0.8rem; color: var(--muted); }
+
+    .actions { display: flex; gap: 12px; margin-top: 8px; }
+    button {
+      padding: 12px 22px;
+      font: inherit;
+      font-weight: 700;
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .primary { flex: 1; background: var(--accent); color: #fff; }
+    .primary:hover { filter: brightness(1.08); }
+    .secondary { background: #e8eaf6; color: var(--ink); }
+
+    .success {
+      margin-top: 24px;
+      padding: 20px 24px;
+      background: #e8f7ef;
+      border: 2px solid var(--good);
+      border-radius: 14px;
+    }
+    .success h2 { margin: 0 0 8px; font-size: 1.2rem; color: var(--good); }
+    .success dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; }
+    .success dt { font-weight: 600; }
+    .success dd { margin: 0; }
+
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <header class="student-details">
+    <p>Name: Ochilov Akhmadjon</p>
+    <p>Student ID: 202539468</p>
+  </header>
+  <div class="page">
+    <h1>Student Registration</h1>
+    <p class="sub">Fields marked <span class="req">*</span> are required.</p>
+
+    <!-- Requirement 1: POST method + action URL -->
+    <form id="regForm" action="https://httpbin.org/post" method="POST">
+
+      <!-- Requirement 2: fieldsets -->
+      <fieldset>
+        <legend>Personal Information</legend>
+
+        <div class="field">
+          <label for="fullName">Full Name <span class="req">*</span></label>
+          <input type="text" id="fullName" name="fullName" placeholder="e.g. Aziza Karimova" required autocomplete="name">
+          <p class="error" id="fullName-error"></p>
+        </div>
+
+        <div class="field">
+          <label for="studentId">Student ID <span class="req">*</span> <span class="hint">(exactly 9 digits)</span></label>
+          <input type="text" id="studentId" name="studentId" placeholder="123456789"
+                 required pattern="\d{9}" inputmode="numeric" maxlength="9"
+                 title="Student ID must be exactly 9 digits">
+          <p class="error" id="studentId-error"></p>
+        </div>
+
+        <div class="field">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" name="dob">
+          <p class="error" id="dob-error"></p>
+        </div>
+
+        <div class="field">
+          <label for="major">Major <span class="req">*</span></label>
+          <select id="major" name="major" required>
+            <option value="">-- Choose your major --</option>
+            <option value="cs">Computer Science</option>
+            <option value="se">Software Engineering</option>
+            <option value="ds">Data Science</option>
+            <option value="ee">Electrical Engineering</option>
+            <option value="bus">Business Administration</option>
+          </select>
+          <p class="error" id="major-error"></p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Account Information</legend>
+
+        <div class="field">
+          <label for="email">Email <span class="req">*</span></label>
+          <input type="email" id="email" name="email" placeholder="you@university.edu" required autocomplete="email">
+          <p class="error" id="email-error"></p>
+        </div>
+
+        <div class="field">
+          <label for="password">Password <span class="req">*</span> <span class="hint">(at least 8 characters)</span></label>
+          <input type="password" id="password" name="password" placeholder="Create a password"
+                 required minlength="8" autocomplete="new-password">
+          <div class="meter" aria-hidden="true"><span id="meterBar"></span></div>
+          <p class="meter-text" id="meterText">Password strength</p>
+          <p class="error" id="password-error"></p>
+        </div>
+
+        <div class="field">
+          <label for="phone">Phone <span class="hint">(format: 010-1234-5678)</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="010-1234-5678"
+                 pattern="\d{3}-\d{4}-\d{4}" title="Use the format 010-1234-5678" autocomplete="tel">
+          <p class="error" id="phone-error"></p>
+        </div>
+      </fieldset>
+
+      <!-- Bonus: range slider with live value -->
+      <div class="field">
+        <label for="experience">Years of coding experience</label>
+        <div class="range-row">
+          <input type="range" id="experience" name="experience" min="0" max="10" step="1" value="0">
+          <output id="experienceOut" for="experience">0 years</output>
+        </div>
+      </div>
+
+      <!-- Requirement 5: required terms checkbox -->
+      <div class="field">
+        <div class="check">
+          <input type="checkbox" id="terms" name="terms" required>
+          <label for="terms">I agree to the terms and conditions <span class="req">*</span></label>
+        </div>
+        <p class="error" id="terms-error"></p>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="primary">Register</button>
+        <button type="reset" class="secondary">Reset</button>
+      </div>
+    </form>
+
+    <section class="success" id="success" hidden aria-live="polite">
+      <h2>Registration complete ✓</h2>
+      <dl id="summary"></dl>
+    </section>
+  </div>
+
+  <script>
+    const form = document.getElementById("regForm");
+    const success = document.getElementById("success");
+    const summary = document.getElementById("summary");
+
+    const fields = [...form.querySelectorAll("input:not([type=range]):not([type=reset]), select")];
+
+    /* ---------- friendly error messages ---------- */
+    const messages = {
+      fullName: { valueMissing: "Please enter your full name." },
+      studentId: {
+        valueMissing: "Student ID is required.",
+        patternMismatch: "Student ID must be exactly 9 digits (numbers only)."
+      },
+      major: { valueMissing: "Please choose a major." },
+      email: {
+        valueMissing: "Email is required.",
+        typeMismatch: "Enter a valid email like name@example.com."
+      },
+      password: {
+        valueMissing: "Password is required.",
+        tooShort: "Password needs at least 8 characters."
+      },
+      phone: { patternMismatch: "Use the format 010-1234-5678." },
+      terms: { valueMissing: "You must agree to the terms to continue." }
+    };
+
+    /* ---------- extra JavaScript rules ---------- */
+    function extraRules(field) {
+      field.setCustomValidity("");
+
+      if (field.id === "fullName" && field.value.trim() !== "") {
+        if (field.value.trim().split(/\s+/).length < 2) {
+          field.setCustomValidity("Please enter first and last name.");
+        } else if (!/^[\p{L}\s'.-]+$/u.test(field.value)) {
+          field.setCustomValidity("Name can only contain letters, spaces, apostrophes and hyphens.");
+        }
+      }
+
+      if (field.id === "dob" && field.value) {
+        const born = new Date(field.value);
+        const today = new Date();
+        let age = today.getFullYear() - born.getFullYear();
+        const hadBirthday =
+          today.getMonth() > born.getMonth() ||
+          (today.getMonth() === born.getMonth() && today.getDate() >= born.getDate());
+        if (!hadBirthday) age--;
+
+        if (born > today) field.setCustomValidity("Date of birth cannot be in the future.");
+        else if (age < 15) field.setCustomValidity("You must be at least 15 years old.");
+        else if (age > 100) field.setCustomValidity("Please check the year you entered.");
+      }
+
+      if (field.id === "password" && field.value.length >= 8) {
+        if (!/[A-Za-z]/.test(field.value) || !/\d/.test(field.value)) {
+          field.setCustomValidity("Password must contain at least one letter and one number.");
+        }
+      }
+    }
+
+    function showError(field) {
+      const box = document.getElementById(field.id + "-error");
+      if (!box) return;
+
+      if (field.validity.valid) {
+        box.textContent = "";
+        return;
+      }
+
+      // custom message from extraRules wins, then our table, then the browser's own text
+      const table = messages[field.id] || {};
+      const type = Object.keys(table).find((key) => field.validity[key]);
+      box.textContent = field.validity.customError
+        ? field.validationMessage
+        : (type ? table[type] : field.validationMessage);
+    }
+
+    function check(field) {
+      extraRules(field);
+      showError(field);
+    }
+
+    /* ---------- live feedback ---------- */
+    fields.forEach((field) => {
+      field.addEventListener("blur", () => {
+        field.classList.add("touched");
+        check(field);
+      });
+      field.addEventListener("input", () => {
+        // only nag about a field once the user has left it, or it already shows an error
+        if (field.classList.contains("touched") || field.value !== "") check(field);
+      });
+      field.addEventListener("change", () => {
+        field.classList.add("touched");
+        check(field);
+      });
+    });
+
+    // can't pick a future birthday
+    document.getElementById("dob").max = new Date().toISOString().split("T")[0];
+
+    /* ---------- password strength meter ---------- */
+    const pw = document.getElementById("password");
+    const bar = document.getElementById("meterBar");
+    const barText = document.getElementById("meterText");
+
+    pw.addEventListener("input", () => {
+      const v = pw.value;
+      let score = 0;
+      if (v.length >= 8) score++;
+      if (/[A-Z]/.test(v) && /[a-z]/.test(v)) score++;
+      if (/\d/.test(v)) score++;
+      if (/[^A-Za-z0-9]/.test(v)) score++;
+      if (v.length === 0) score = 0;
+
+      const levels = [
+        ["0%", "#d63c3c", "Password strength"],
+        ["25%", "#d63c3c", "Weak"],
+        ["50%", "#e69a1a", "Fair"],
+        ["75%", "#7cb518", "Good"],
+        ["100%", "#1f9d63", "Strong"]
+      ];
+      bar.style.width = levels[score][0];
+      bar.style.background = levels[score][1];
+      barText.textContent = levels[score][2];
+    });
+
+    /* ---------- bonus: live range value ---------- */
+    const range = document.getElementById("experience");
+    const rangeOut = document.getElementById("experienceOut");
+
+    function showRange() {
+      const n = Number(range.value);
+      rangeOut.textContent = n === 1 ? "1 year" : `${n} years`;
+    }
+    range.addEventListener("input", showRange);
+    showRange();
+
+    /* ---------- phone auto-format: 01012345678 -> 010-1234-5678 ---------- */
+    const phone = document.getElementById("phone");
+    phone.addEventListener("input", () => {
+      const digits = phone.value.replace(/\D/g, "").slice(0, 11);
+      const parts = [digits.slice(0, 3), digits.slice(3, 7), digits.slice(7, 11)].filter(Boolean);
+      phone.value = parts.join("-");
+    });
+
+    /* ---------- submit ---------- */
+    form.addEventListener("submit", (event) => {
+      fields.forEach((field) => {
+        field.classList.add("touched");
+        check(field);
+      });
+
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        const firstBad = fields.find((field) => !field.validity.valid);
+        if (firstBad) firstBad.focus();
+        success.hidden = true;
+        return;
+      }
+
+      // Everything is valid. There is no real server on GitHub Pages,
+      // so show the result on the page instead of sending it.
+      // (To really POST to the action URL, delete the next line.)
+      event.preventDefault();
+
+      const data = new FormData(form);
+      const rows = [
+        ["Name", data.get("fullName")],
+        ["Student ID", data.get("studentId")],
+        ["Birth date", data.get("dob") || "not given"],
+        ["Major", form.major.options[form.major.selectedIndex].text],
+        ["Email", data.get("email")],
+        ["Phone", data.get("phone") || "not given"],
+        ["Experience", rangeOut.textContent]
+      ];
+
+      summary.replaceChildren();
+      rows.forEach(([label, value]) => {
+        const dt = document.createElement("dt");
+        const dd = document.createElement("dd");
+        dt.textContent = label;
+        dd.textContent = value;
+        summary.append(dt, dd);
+      });
+
+      success.hidden = false;
+      success.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
+    form.addEventListener("reset", () => {
+      success.hidden = true;
+      fields.forEach((field) => {
+        field.classList.remove("touched");
+        field.setCustomValidity("");
+      });
+      document.querySelectorAll(".error").forEach((el) => (el.textContent = ""));
+      setTimeout(() => {
+        showRange();
+        bar.style.width = "0%";
+        barText.textContent = "Password strength";
+      }, 0);
+    });
+  </script>
+</body>
+</html>
