@@ -191,6 +191,22 @@ h2 {
   margin-top: auto;
 }
 
+.week-exercise-links {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: auto;
+}
+
+.week-exercise-links a {
+  min-height: 38px;
+  justify-content: flex-start;
+  margin-top: 0;
+  padding: 7px 10px;
+  font-size: 0.88rem;
+}
+
 .week-card a:hover,
 .button:hover {
   border-color: var(--green-dark);
