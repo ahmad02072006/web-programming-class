@@ -24,8 +24,11 @@
       line-height: 1.6;
     }
   </style>
+  <link rel="stylesheet" href="../../skip-link.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <main id="main-content" tabindex="-1">
   <div class="stack">
     <div class="layer layer-1">z-index: 1 (bottom)</div>
     <div class="layer layer-2">z-index: 2 (middle)</div>
@@ -36,5 +39,7 @@
     This text is too long to fit and will be cut off.
     You will not see this last sentence at all.
   </div>
+
+  </main>
 </body>
 </html>

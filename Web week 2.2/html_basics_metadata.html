@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Basics & Metadata</title>
+  <link rel="stylesheet" href="../skip-link.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <main id="main-content" tabindex="-1">
   <h1>Module 1: Fundamentals & Metadata</h1>
 
   <section>
@@ -15,21 +18,23 @@
 
   <section>
     <h2>2. Page Structure</h2>
-    <p>The <code><!DOCTYPE html></code> line tells browsers to display the page using modern standards.</p>
+    <p>The <code>&lt;!DOCTYPE html&gt;</code> line tells browsers to display the page using modern standards.</p>
     <p>The <code>
-      <head>
+      &lt;head&gt;
       </code> holds background settings, while the <code>
-        <body>
+        &lt;body&gt;
         </code> holds everything visible on the screen.</p>
   </section>
 
   <section>
     <h2>3. Key Head Elements</h2>
     <ul>
-      <li><code><meta charset="UTF-8"></code> — Ensures text, emojis, and foreign characters display correctly.</li>
-      <li><code><title></code> — Sets the name shown on the browser tab and search engines.</li>
+      <li><code>&lt;meta charset="UTF-8"&gt;</code> — Ensures text, emojis, and foreign characters display correctly.</li>
+      <li><code>&lt;title&gt;</code> — Sets the name shown on the browser tab and search engines.</li>
       <li><code>lang="en"</code> — Tells screen readers and translation tools what language the page is using.</li>
     </ul>
   </section>
+
+  </main>
 </body>
 </html>

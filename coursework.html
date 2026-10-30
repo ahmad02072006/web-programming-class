@@ -342,8 +342,10 @@
       *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
     }
   </style>
+  <link rel="stylesheet" href="skip-link.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <div class="shell">
     <header class="topbar">
       <a class="brand" href="./coursework.html" aria-label="Web Programming coursework home">
@@ -353,7 +355,7 @@
       <span class="course-label">Coursework collection</span>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <section class="hero" aria-labelledby="page-title">
         <p class="eyebrow">Assignments &amp; practice</p>
         <h1 id="page-title">My web programming work.</h1>

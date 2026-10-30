@@ -20,9 +20,11 @@ select { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #ccc
 .day { background: #eef6ff; border-radius: 12px; padding: 10px; text-align: center; font-size: .9rem; }
 .day strong { display: block; margin-bottom: 4px; }
 </style>
+  <link rel="stylesheet" href="../skip-link.css">
 </head>
 <body>
-  <main class="card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <main class="card" id="main-content" tabindex="-1">
     <h1>Korea Weather</h1>
     <select id="city">
       <option value="37.57,126.98,Seoul">Seoul</option>

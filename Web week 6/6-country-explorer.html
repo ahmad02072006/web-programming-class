@@ -20,9 +20,11 @@ th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eee; }
 th { background: #e7f0fa; cursor: pointer; user-select: none; }
 td img { width: 48px; height: auto; border: 1px solid #ddd; border-radius: 3px; display: block; }
 </style>
+  <link rel="stylesheet" href="../skip-link.css">
 </head>
 <body>
-  <main>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <main id="main-content" tabindex="-1">
     <h1>Country Explorer</h1>
     <form id="form">
       <input id="query" placeholder="Search a country (e.g. korea, japan, france)" required>

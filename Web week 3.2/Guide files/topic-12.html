@@ -40,12 +40,14 @@
     .cards div { background: #0f766e; color: white;
                  padding: 12px; border-radius: 6px; text-align: center; font-size: 13px; }
   </style>
+  <link rel="stylesheet" href="../../skip-link.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <div class="page">
     <header>Header (spans all 3 columns)</header>
     <div class="sidebar">Sidebar<br>(200px fixed)</div>
-    <main>Main content (flex: fills remaining 2 columns)</main>
+    <main id="main-content" tabindex="-1">Main content (flex: fills remaining 2 columns)</main>
     <footer>Footer (spans all 3 columns)</footer>
   </div>
   <div class="cards">

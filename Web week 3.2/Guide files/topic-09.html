@@ -48,8 +48,11 @@
     /* Local override — this card uses red as primary */
     .card.danger { --color-primary: #f43f5e; --color-accent: #fb7185; }
   </style>
+  <link rel="stylesheet" href="../../skip-link.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <main id="main-content" tabindex="-1">
   <button class="btn">Primary Button</button>
   <div class="card">
     <strong>Default Card</strong><br>Uses global --color-primary (teal)
@@ -57,5 +60,7 @@
   <div class="card danger">
     <strong>Danger Card</strong><br>Local override: --color-primary = red
   </div>
+
+  </main>
 </body>
 </html>

@@ -26,8 +26,11 @@
 
     p { margin: 8px 0; }
   </style>
+  <link rel="stylesheet" href="../../skip-link.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <main id="main-content" tabindex="-1">
   <div class="parent">
     <p>Parent — color: red</p>
     <p class="child-inherit">child color: inherit → red</p>
@@ -39,5 +42,7 @@
     Parent has a border
     <div class="inherit-border" style="margin-top:8px">border: inherit → same border</div>
   </div>
+
+  </main>
 </body>
 </html>

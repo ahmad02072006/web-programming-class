@@ -601,8 +601,10 @@ dialog[open] { animation: pop .22s ease; }
 }
 
   </style>
+  <link rel="stylesheet" href="../skip-link.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <header class="top">
     <a class="brand" href="./">
@@ -618,7 +620,7 @@ dialog[open] { animation: pop .22s ease; }
     </nav>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <!-- ============ DISCOVER ============ -->
     <section id="panel-discover" role="tabpanel" aria-labelledby="tab-discover">
       <div class="hero">

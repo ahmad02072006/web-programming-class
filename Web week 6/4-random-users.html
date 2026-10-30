@@ -20,8 +20,11 @@ button:disabled { opacity: .5; }
 .user h3 { margin: 12px 0 4px; }
 .user p { margin: 2px 0; color: #555; font-size: .9rem; word-break: break-word; }
 </style>
+  <link rel="stylesheet" href="../skip-link.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <main id="main-content" tabindex="-1">
   <header>
     <h1>Random User Cards</h1>
     <select id="count">
@@ -88,5 +91,7 @@ function render(users) {
 loadBtn.addEventListener('click', loadUsers);
 loadUsers();
 </script>
+
+  </main>
 </body>
 </html>

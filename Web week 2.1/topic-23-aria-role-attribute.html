@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Topic 23 — ARIA role Attribute</title>
+  <link rel="stylesheet" href="../skip-link.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
 <!-- K0126002 · Web Programming :: Gachon University :: Author: Ochilov Akhmad -->
 <!-- Topic 23: ARIA role Attribute -->
@@ -13,7 +15,7 @@
 <!-- 1. Native HTML — role is implicit, no attribute needed -->
 <button>Submit</button>        <!-- role="button" is automatic -->
 <nav>...</nav>                 <!-- role="navigation" is automatic -->
-<main>...</main>               <!-- role="main" is automatic -->
+<main id="main-content" tabindex="-1">...</main>               <!-- role="main" is automatic -->
 
 <!-- 2. ARIA role — only when native element does not exist -->
 <!-- Custom tab widget (no native tab element in HTML) -->

@@ -39,8 +39,10 @@
     .main    { flex: 1; background: white; border: 2px solid #14b8a6;
                padding: 16px; border-radius: 10px; }
   </style>
+  <link rel="stylesheet" href="../../skip-link.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <div class="card-grid">
     <div class="card">A</div>
     <div class="card">B</div>
@@ -50,7 +52,7 @@
   </div>
   <div class="sidebar-layout">
     <aside class="sidebar">Sidebar (fixed 180px)</aside>
-    <main class="main">Main content (flex:1 — fills remaining space)</main>
+    <main class="main" id="main-content" tabindex="-1">Main content (flex:1 — fills remaining space)</main>
   </div>
 </body>
 </html>

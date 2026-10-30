@@ -6,8 +6,10 @@
   <meta name="theme-color" content="#f3f6f4">
   <title>Web Programming</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="skip-link.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <nav class="site-nav" aria-label="Main navigation">
     <a href="index.html" aria-current="page">Home</a>
     <a href="Web%20week%202.2/week2.html">Week 2</a>
@@ -18,7 +20,7 @@
     <a href="Web%20week%207/Book%20finder.html">Week 7</a>
     <a href="Web%20week%208/contact.html">Week 8</a>
   </nav>
-  <main class="page-shell">
+  <main class="page-shell" id="main-content" tabindex="-1">
     <p class="eyebrow">Course portfolio</p>
     <h1>Web Programming</h1>
     <p>Ochilov Akhmadjon | Student ID: 202539468</p>
@@ -77,6 +79,12 @@
           <a href="Web%20week%208/contact.html">Contact form</a>
           <a href="Web%20week%208/registration.html">Student registration</a>
         </div>
+      </article>
+      <article class="week-card">
+        <span class="week-number">Week 9</span>
+        <h2>Documentation</h2>
+        <p>View the uploaded Week 9 documentation.</p>
+        <a class="documentation-link" href="Web%20week%209/Web%20week%209.docx">Week 9 documentation (.docx)</a>
       </article>
     </section>
   </main>

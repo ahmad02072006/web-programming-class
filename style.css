@@ -191,6 +191,10 @@ h2 {
   margin-top: auto;
 }
 
+.week-card .documentation-link {
+  min-height: 44px;
+}
+
 .week-exercise-links {
   display: grid;
   width: 100%;

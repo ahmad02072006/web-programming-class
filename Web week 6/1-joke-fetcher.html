@@ -22,9 +22,11 @@ button.secondary { background: #f0ecff; color: #6c4ff0; margin-top: 12px; }
 ul { text-align: left; padding-left: 18px; }
 li { margin-bottom: 8px; }
 </style>
+  <link rel="stylesheet" href="../skip-link.css">
 </head>
 <body>
-  <main class="card">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <main class="card" id="main-content" tabindex="-1">
     <h1>Random Joke Fetcher</h1>
     <button id="loadBtn">Load a Joke</button>
     <div id="status" class="status"></div>
