@@ -21,9 +21,24 @@ button:disabled { opacity: .5; }
 .user p { margin: 2px 0; color: #555; font-size: .9rem; word-break: break-word; }
 </style>
   <link rel="stylesheet" href="../skip-link.css">
+  <link rel="stylesheet" href="../style.css">
 </head>
-<body>
+<body class="portfolio-document">
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="portfolio-hero" aria-label="Course navigation">
+    <nav class="portfolio-nav" aria-label="Main navigation">
+      <a class="portfolio-brand" href="../index.html">[MY NAME]</a>
+      <div class="portfolio-links">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#weeks">Weeks</a>
+        <a href="../Project%20Submission/index.html">Project Submission</a>
+        <a href="../index.html#about">About</a>
+      </div>
+      <a class="portfolio-cta" href="../index.html#weeks">All weeks</a>
+    </nav>
+    <a class="portfolio-back" href="../index.html#weeks">← Back to all weeks</a>
+  </header>
+
   <main id="main-content" tabindex="-1">
   <header>
     <h1>Random User Cards</h1>
@@ -70,6 +85,9 @@ function render(users) {
     const img = document.createElement('img');
     img.src = u.picture.large;
     img.alt = u.name.first + ' ' + u.name.last;
+    img.width = 96;
+    img.height = 96;
+    img.loading = 'lazy';
 
     const name = document.createElement('h3');
     name.textContent = u.name.first + ' ' + u.name.last;

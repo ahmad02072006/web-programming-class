@@ -3,97 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f3f6f4">
-  <title>Web Programming</title>
+  <meta name="theme-color" content="#2b4fa3">
+  <title>[MY NAME] | Web Programming</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="skip-link.css">
 </head>
-<body>
+<body class="home-page">
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  <nav class="site-nav" aria-label="Main navigation">
-    <a href="index.html" aria-current="page">Home</a>
-    <a href="Web%20week%202.2/week2.html">Week 2</a>
-    <a href="Web%20week%203.1/index.html">Week 3</a>
-    <a href="Web%20week%204/index.html">Week 4</a>
-    <a href="Web%20week%205/index.html">Week 5</a>
-    <a href="Web%20week%206/1-joke-fetcher.html">Week 6</a>
-    <a href="Web%20week%207/Book%20finder.html">Week 7</a>
-    <a href="Web%20week%208/contact.html">Week 8</a>
-    <a href="Web%20week%209/Web%20week%209.pdf">Week 9</a>
-    <a href="Project%20Submission/index.html">Project Submission</a>
-  </nav>
-  <main class="page-shell" id="main-content" tabindex="-1">
-    <p class="eyebrow">Course portfolio</p>
-    <h1>Web Programming</h1>
-    <p>Ochilov Akhmadjon | Student ID: 202539468</p>
-    <p class="intro">A collection of notes and hands-on exercises exploring how the web is structured, styled, and brought to life.</p>
-    <section aria-label="Course weeks" class="week-grid">
-      <article class="week-card">
-        <span class="week-number">Week 2</span>
-        <h2>HTML basics</h2>
-        <p>Build clear, meaningful page structure with HTML.</p>
-        <a href="Web%20week%202.2/week2.html">Open week →</a>
-      </article>
-      <article class="week-card">
-        <span class="week-number">Week 3</span>
-        <h2>CSS styling and layouts</h2>
-        <p>Use styles, color, and responsive layouts to shape a page.</p>
-        <a href="Web%20week%203.1/index.html">Open week →</a>
-      </article>
-      <article class="week-card">
-        <span class="week-number">Week 4</span>
-        <h2>JavaScript DOM and events</h2>
-        <p>Select elements and respond to what a visitor does.</p>
-        <a href="Web%20week%204/index.html">Open week →</a>
-      </article>
-      <article class="week-card">
-        <span class="week-number">Week 5</span>
-        <h2>Conditions, loops, and counters</h2>
-        <p>Practice program logic and build a working counter.</p>
-        <a href="Web%20week%205/index.html">Open week →</a>
-      </article>
-      <article class="week-card">
-        <span class="week-number">Week 6</span>
-        <h2>Working with APIs</h2>
-        <p>Practice fetching and presenting data from public APIs.</p>
-        <div class="week-exercise-links">
-          <a href="Web%20week%206/1-joke-fetcher.html">Joke Fetcher</a>
-          <a href="Web%20week%206/2-posts-viewer.html">Posts Viewer</a>
-          <a href="Web%20week%206/3-weather-app.html">Weather App</a>
-          <a href="Web%20week%206/4-random-users.html">Random Users</a>
-          <a href="Web%20week%206/5-pokedex.html">Pokédex</a>
-          <a href="Web%20week%206/6-country-explorer.html">Country Explorer</a>
-        </div>
-      </article>
-      <article class="week-card">
-        <span class="week-number">Week 7</span>
-        <h2>Book Finder</h2>
-        <p>Search for books and explore their details.</p>
-        <div class="week-exercise-links">
-          <a href="Web%20week%207/Book%20finder.html">Open Book Finder</a>
-        </div>
-      </article>
-      <article class="week-card">
-        <span class="week-number">Week 8</span>
-        <h2>HTML forms</h2>
-        <p>Practice semantic form fields and built-in browser validation.</p>
-        <div class="week-exercise-links">
-          <a href="Web%20week%208/contact.html">Contact form</a>
-          <a href="Web%20week%208/registration.html">Student registration</a>
-        </div>
-      </article>
-      <article class="week-card">
-        <span class="week-number">Week 9</span>
-        <h2>Documentation</h2>
-        <p>View the uploaded Week 9 documentation.</p>
-        <a class="documentation-link" href="Web%20week%209/Web%20week%209.pdf">Week 9 documentation (PDF)</a>
-      </article>
-      <article class="week-card">
-        <span class="week-number">Project</span>
-        <h2>Project Submission</h2>
-        <p>View the API Atlas presentation and Lighthouse result.</p>
-        <a href="Project%20Submission/index.html">Open project submission</a>
-      </article>
+  <header class="home-hero" id="top">
+    <nav class="home-nav" aria-label="Main navigation">
+      <a class="home-brand" href="#top">[MY NAME]</a>
+      <div class="home-links">
+        <a href="index.html">Home</a>
+        <a href="#weeks">Weeks</a>
+        <a href="Project%20Submission/index.html">Project Submission</a>
+        <a href="#about">About</a>
+      </div>
+      <a class="home-cta" href="#weeks">See the work</a>
+    </nav>
+    <div class="home-hero-content">
+      <p class="home-eyebrow">Gachon University · Web Programming</p>
+      <h1>Small ideas.<br>Real things on the web.</h1>
+      <p>I’m [MY NAME], a web programming student at Gachon University. I learn by turning lessons into pages, experiments, and projects that work.</p>
+      <a class="home-button" href="#weeks">Explore the weeks</a>
+    </div>
+    <svg class="home-wave" viewBox="0 0 1600 700" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="#fff" stroke-width="1.2">
+        <path d="M-80 470 C180 355 260 590 510 480 S850 310 1060 420 S1370 590 1680 405" opacity=".24"/>
+        <path d="M-80 490 C180 375 260 610 510 500 S850 330 1060 440 S1370 610 1680 425" opacity=".2"/>
+        <path d="M-80 510 C180 395 260 630 510 520 S850 350 1060 460 S1370 630 1680 445" opacity=".18"/>
+        <path d="M-80 530 C180 415 260 650 510 540 S850 370 1060 480 S1370 650 1680 465" opacity=".16"/>
+        <path d="M-80 550 C180 435 260 670 510 560 S850 390 1060 500 S1370 670 1680 485" opacity=".14"/>
+        <path d="M-80 570 C180 455 260 690 510 580 S850 410 1060 520 S1370 690 1680 505" opacity=".12"/>
+        <path d="M-80 590 C180 475 260 710 510 600 S850 430 1060 540 S1370 710 1680 525" opacity=".1"/>
+        <path d="M-80 610 C180 495 260 730 510 620 S850 450 1060 560 S1370 730 1680 545" opacity=".09"/>
+        <path d="M-80 630 C180 515 260 750 510 640 S850 470 1060 580 S1370 750 1680 565" opacity=".08"/>
+      </g>
+    </svg>
+  </header>
+  <main class="home-main" id="main-content" tabindex="-1">
+    <section id="weeks" aria-labelledby="weeks-heading">
+      <div class="section-heading">
+        <p class="section-kicker">The learning trail</p>
+        <h2 id="weeks-heading">One week, one new thing to make.</h2>
+        <p>From meaningful markup to working apps, each stop adds another tool to the kit.</p>
+      </div>
+      <div class="week-grid">
+        <article class="week-card">
+          <span class="week-number">Week 2</span>
+          <h3>HTML: Build a Page that Feels Like You</h3>
+          <p>Explore headings, navigation, skills, recipes, favorites, and a personal contact section.</p>
+          <a href="Web%20week%202.2/week2.html">Explore Week 2 →</a>
+        </article>
+        <article class="week-card">
+          <span class="week-number">Week 3</span>
+          <h3>Week 3: First Pages, Better Style</h3>
+          <p>Make profile pages, navigation, images, recipes, and favorites through eight assignments.</p>
+          <a href="Web%20week%203.1/index.html">Explore Week 3 →</a>
+        </article>
+        <article class="week-card">
+          <span class="week-number">Week 4</span>
+          <h3>JavaScript: Make It Respond</h3>
+          <p>Explore the DOM, handle events, and build six small interactive exercises.</p>
+          <a href="Web%20week%204/index.html">Explore Week 4 →</a>
+        </article>
+        <article class="week-card">
+          <span class="week-number">Week 5</span>
+          <h3>Logic: Ask, Repeat, Count</h3>
+          <p>Turn conditions and loops into a grade checker and a working counter.</p>
+          <a href="Web%20week%205/index.html">Explore Week 5 →</a>
+        </article>
+        <article class="week-card">
+          <span class="week-number">Week 6</span>
+          <h3>APIs: Bring Data to the Page</h3>
+          <p>Fetch jokes, posts, weather, people, Pokémon, and country details.</p>
+          <div class="week-exercise-links">
+            <a href="Web%20week%206/1-joke-fetcher.html">Joke Fetcher</a>
+            <a href="Web%20week%206/2-posts-viewer.html">Posts Viewer</a>
+            <a href="Web%20week%206/3-weather-app.html">Weather App</a>
+            <a href="Web%20week%206/4-random-users.html">Random Users</a>
+            <a href="Web%20week%206/5-pokedex.html">Pokédex</a>
+            <a href="Web%20week%206/6-country-explorer.html">Country Explorer</a>
+          </div>
+        </article>
+        <article class="week-card">
+          <span class="week-number">Week 7</span>
+          <h3>Books: Find Your Next Read</h3>
+          <p>Search a book collection and gather promising titles on a reading shelf.</p>
+          <div class="week-exercise-links">
+            <a href="Web%20week%207/Book%20finder.html">Open Book Finder</a>
+          </div>
+        </article>
+        <article class="week-card">
+          <span class="week-number">Week 8</span>
+          <h3>Forms: Make Every Field Count</h3>
+          <p>Build contact and registration forms with clear fields and validation.</p>
+          <div class="week-exercise-links">
+            <a href="Web%20week%208/contact.html">Contact form</a>
+            <a href="Web%20week%208/registration.html">Student registration</a>
+          </div>
+        </article>
+        <article class="week-card">
+          <span class="week-number">Week 9</span>
+          <h3>Week 9: Keep the Notes Close</h3>
+          <p>Open the saved Week 9 course document in its original PDF format.</p>
+          <a class="documentation-link" href="Web%20week%209/Web%20week%209.pdf">Read the Week 9 PDF →</a>
+        </article>
+        <article class="week-card project-card">
+          <span class="week-number">Featured project</span>
+          <h3>API Atlas: Plan a Trip, All in One Place</h3>
+          <p>A travel planner with weather, currency conversion, and useful place details.</p>
+          <a href="Project%20Submission/index.html">Explore Project Submission →</a>
+        </article>
+      </div>
+    </section>
+    <section class="about-card" id="about" aria-labelledby="about-heading">
+      <p class="section-kicker">A little about me</p>
+      <h2 id="about-heading">Learning by making.</h2>
+      <p>I’m [MY NAME], a web programming student at Gachon University. I like taking a new idea from a lesson and giving it a working place on the web.</p>
     </section>
   </main>
 </body>

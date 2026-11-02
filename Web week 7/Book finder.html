@@ -602,9 +602,24 @@ dialog[open] { animation: pop .22s ease; }
 
   </style>
   <link rel="stylesheet" href="../skip-link.css">
+  <link rel="stylesheet" href="../style.css">
 </head>
-<body>
+<body class="portfolio-document">
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="portfolio-hero" aria-label="Course navigation">
+    <nav class="portfolio-nav" aria-label="Main navigation">
+      <a class="portfolio-brand" href="../index.html">[MY NAME]</a>
+      <div class="portfolio-links">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#weeks">Weeks</a>
+        <a href="../Project%20Submission/index.html">Project Submission</a>
+        <a href="../index.html#about">About</a>
+      </div>
+      <a class="portfolio-cta" href="../index.html#weeks">All weeks</a>
+    </nav>
+    <a class="portfolio-back" href="../index.html#weeks">← Back to all weeks</a>
+  </header>
+
 
   <header class="top">
     <a class="brand" href="./">
@@ -849,6 +864,8 @@ function makeCoverImage(book, size) {
   const img = document.createElement("img");
   img.src = coverUrl(book.cover, size);
   img.alt = `Cover of ${book.title}`;
+  img.width = 124;
+  img.height = 186;
   img.loading = "lazy";
   img.addEventListener("error", () => img.replaceWith(makeFallback(book)));
   return img;
