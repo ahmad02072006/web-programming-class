@@ -3,55 +3,385 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f3f6f4">
+  <meta name="theme-color" content="#2b4fa3">
   <title>Project Submission</title>
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../skip-link.css">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #f7f7fb;
+    }
+
+    .hero {
+      position: relative;
+      display: flex;
+      min-height: 76vh;
+      flex-direction: column;
+      overflow: hidden;
+      isolation: isolate;
+      color: #fff;
+      background:
+        radial-gradient(ellipse at 52% 105%, rgba(255, 190, 205, 0.34), transparent 43%),
+        linear-gradient(160deg, rgba(13, 20, 53, 0.22), transparent 64%),
+        linear-gradient(125deg, #2b4fa3 0%, #4a3b8f 53%, #c0457a 100%);
+    }
+
+    .hero-nav,
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      width: min(100% - 48px, 1180px);
+      margin-inline: auto;
+    }
+
+    .hero-nav {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+      padding-block: 26px;
+    }
+
+    .hero-nav a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .hero-logo {
+      justify-self: start;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: clamp(14px, 2.5vw, 34px);
+    }
+
+    .hero-links a {
+      font-size: 0.94rem;
+      font-weight: 650;
+      opacity: 0.92;
+    }
+
+    .hero-links a:hover {
+      opacity: 1;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+
+    .hero-nav .nav-cta {
+      justify-self: end;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #fff;
+      color: #382f76;
+      font-size: 0.92rem;
+      font-weight: 800;
+      box-shadow: 0 7px 20px rgba(20, 18, 54, 0.16);
+    }
+
+    .hero-content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding-block: 60px 110px;
+    }
+
+    .hero-content h1 {
+      max-width: 900px;
+      margin: 0 0 22px;
+      color: #fff;
+      font-size: clamp(3rem, 8vw, 6.7rem);
+      font-weight: 750;
+      letter-spacing: -0.065em;
+      line-height: 0.98;
+      text-shadow: 0 3px 24px rgba(17, 18, 52, 0.2);
+    }
+
+    .hero-content p {
+      max-width: 660px;
+      margin: 0 0 32px;
+      color: rgba(255, 255, 255, 0.94);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      line-height: 1.7;
+    }
+
+    .gradient-button,
+    .hero-content .read-more {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(110deg, #2b4fa3, #4a3b8f 55%, #c0457a);
+      color: #fff;
+      font: inherit;
+      font-weight: 750;
+      text-decoration: none;
+      box-shadow: 0 8px 22px rgba(47, 39, 112, 0.2);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .hero-content .read-more {
+      background: #fff;
+      color: #382f76;
+      box-shadow: 0 8px 24px rgba(20, 18, 54, 0.2);
+    }
+
+    .gradient-button:hover,
+    .hero-content .read-more:hover,
+    .hero-nav .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(28, 24, 75, 0.25);
+    }
+
+    .hero-wave {
+      position: absolute;
+      z-index: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 74%;
+      pointer-events: none;
+    }
+
+    .submission-content {
+      display: grid;
+      gap: 26px;
+      width: min(100% - 40px, 1000px);
+      margin: 0 auto;
+      padding-block: 72px 64px;
+    }
+
+    .submission-card {
+      scroll-margin-top: 24px;
+      padding: clamp(24px, 5vw, 46px);
+      border: 1px solid rgba(62, 56, 121, 0.08);
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 16px 44px rgba(38, 37, 76, 0.08);
+    }
+
+    .submission-card h2,
+    .submission-card h3 {
+      background: linear-gradient(105deg, #2b4fa3, #4a3b8f 55%, #c0457a);
+      background-clip: text;
+      color: transparent;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .submission-card h2 {
+      margin-bottom: 20px;
+      font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+      letter-spacing: 0.045em;
+    }
+
+    .submission-card .button {
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(110deg, #2b4fa3, #4a3b8f 55%, #c0457a);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(70, 56, 136, 0.2);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .submission-card .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(70, 56, 136, 0.28);
+    }
+
+    .lighthouse-image {
+      display: block;
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      margin: 0 auto 26px;
+      border-radius: 12px;
+      box-shadow: 0 10px 28px rgba(24, 25, 45, 0.12);
+    }
+
+    .lighthouse-metrics {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: #4d526b;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .back-link {
+      display: inline-flex;
+      width: min(100% - 40px, 1000px);
+      margin: 0 auto 48px;
+      color: #4a3b8f;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .hero a:focus-visible,
+    .submission-card a:focus-visible,
+    .back-link:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 4px;
+    }
+
+    .submission-card a:focus-visible,
+    .back-link:focus-visible {
+      outline-color: #4a3b8f;
+    }
+
+    @media (max-width: 720px) {
+      .hero {
+        min-height: 78vh;
+      }
+
+      .hero-nav {
+        grid-template-columns: 1fr auto;
+        gap: 16px;
+        padding-block: 20px;
+      }
+
+      .hero-logo {
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      .hero-nav .nav-cta {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      .hero-links {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        justify-content: flex-start;
+        gap: 12px 22px;
+      }
+
+      .hero-content {
+        padding-block: 60px 100px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .hero-nav,
+      .hero-content {
+        width: min(100% - 32px, 1180px);
+      }
+
+      .hero-nav {
+        gap: 12px;
+      }
+
+      .hero-logo {
+        font-size: 1.05rem;
+      }
+
+      .hero-nav .nav-cta {
+        padding: 9px 13px;
+        font-size: 0.84rem;
+      }
+
+      .hero-links a {
+        font-size: 0.86rem;
+      }
+
+      .submission-content,
+      .back-link {
+        width: min(100% - 32px, 1000px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  <nav class="site-nav" aria-label="Main navigation">
-    <a href="../index.html">Home</a>
-    <a href="../Web%20week%202.2/week2.html">Week 2</a>
-    <a href="../Web%20week%203.1/index.html">Week 3</a>
-    <a href="../Web%20week%204/index.html">Week 4</a>
-    <a href="../Web%20week%205/index.html">Week 5</a>
-    <a href="../Web%20week%206/1-joke-fetcher.html">Week 6</a>
-    <a href="../Web%20week%207/Book%20finder.html">Week 7</a>
-    <a href="../Web%20week%208/contact.html">Week 8</a>
-    <a href="../Web%20week%209/Web%20week%209.pdf">Week 9</a>
-    <a href="index.html" aria-current="page">Project Submission</a>
-  </nav>
-  <main class="page-shell" id="main-content" tabindex="-1">
-    <a class="back-link" href="../index.html">← Back to course portfolio</a>
-    <h1>Project Submission</h1>
-    <div class="submission-content">
-      <section class="panel" aria-labelledby="presentation-heading">
-        <h2 id="presentation-heading">PRESENTATION</h2>
-        <a class="button" href="APIATLAS%20Project%20Presentation.pptx" download>Download the PowerPoint presentation</a>
-      </section>
-      <section class="panel" aria-labelledby="live-project-heading">
-        <h2 id="live-project-heading">LIVE PROJECT LINK</h2>
-        <a class="button" href="https://ahmad02072006.github.io/test-main-2/" target="_blank" rel="noopener">Open API Atlas</a>
-      </section>
-      <section class="panel" aria-labelledby="lighthouse-result-heading">
-        <h2 id="lighthouse-result-heading">LIGHTHOUSE RESULT</h2>
-        <img
-          class="lighthouse-image"
-          src="Lighthouse%20.jpg"
-          alt="Lighthouse Performance score for API Atlas (mobile)."
-          width="1024"
-          height="1104"
-          loading="lazy"
-        >
-        <h3>Performance score: 97</h3>
-        <ul class="lighthouse-metrics">
-          <li>Accessibility: 95</li>
-          <li>Best Practices: 100</li>
-          <li>SEO: 100</li>
-        </ul>
-      </section>
+  <header class="hero" id="top">
+    <nav class="hero-nav" aria-label="Project navigation">
+      <a class="hero-logo" href="#top">API Atlas</a>
+      <div class="hero-links">
+        <a href="../index.html">Home</a>
+        <a href="#presentation">Presentation</a>
+        <a href="#project">Project</a>
+        <a href="#lighthouse">Lighthouse</a>
+      </div>
+      <a class="nav-cta" href="https://ahmad02072006.github.io/test-main-2/" target="_blank" rel="noopener">Open Project</a>
+    </nav>
+    <div class="hero-content">
+      <h1>Project Submission</h1>
+      <p>API Atlas is a travel planning website with a trip planner, weather, currency converter, and place information.</p>
+      <a class="read-more" href="#presentation">Read more</a>
     </div>
+    <svg class="hero-wave" viewBox="0 0 1600 700" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="#fff" stroke-width="1.2">
+        <path d="M-80 470 C180 355 260 590 510 480 S850 310 1060 420 S1370 590 1680 405" opacity=".24"/>
+        <path d="M-80 490 C180 375 260 610 510 500 S850 330 1060 440 S1370 610 1680 425" opacity=".2"/>
+        <path d="M-80 510 C180 395 260 630 510 520 S850 350 1060 460 S1370 630 1680 445" opacity=".18"/>
+        <path d="M-80 530 C180 415 260 650 510 540 S850 370 1060 480 S1370 650 1680 465" opacity=".16"/>
+        <path d="M-80 550 C180 435 260 670 510 560 S850 390 1060 500 S1370 670 1680 485" opacity=".14"/>
+        <path d="M-80 570 C180 455 260 690 510 580 S850 410 1060 520 S1370 690 1680 505" opacity=".12"/>
+        <path d="M-80 590 C180 475 260 710 510 600 S850 430 1060 540 S1370 710 1680 525" opacity=".1"/>
+        <path d="M-80 610 C180 495 260 730 510 620 S850 450 1060 560 S1370 730 1680 545" opacity=".09"/>
+        <path d="M-80 630 C180 515 260 750 510 640 S850 470 1060 580 S1370 750 1680 565" opacity=".08"/>
+      </g>
+    </svg>
+  </header>
+  <main class="submission-content" id="main-content" tabindex="-1">
+    <section class="submission-card" id="presentation" aria-labelledby="presentation-heading">
+      <h2 id="presentation-heading">PRESENTATION</h2>
+      <a class="button" href="APIATLAS%20Project%20Presentation.pptx" download>Download the PowerPoint presentation</a>
+    </section>
+    <section class="submission-card" id="project" aria-labelledby="live-project-heading">
+      <h2 id="live-project-heading">LIVE PROJECT LINK</h2>
+      <a class="button" href="https://ahmad02072006.github.io/test-main-2/" target="_blank" rel="noopener">Open API Atlas</a>
+    </section>
+    <section class="submission-card" id="lighthouse" aria-labelledby="lighthouse-result-heading">
+      <h2 id="lighthouse-result-heading">LIGHTHOUSE RESULT</h2>
+      <img
+        class="lighthouse-image"
+        src="Lighthouse%20.jpg"
+        alt="Lighthouse Performance score for API Atlas (mobile)."
+        width="1024"
+        height="1104"
+        loading="lazy"
+      >
+      <h3>Performance score: 97</h3>
+      <ul class="lighthouse-metrics">
+        <li>Accessibility: 95</li>
+        <li>Best Practices: 100</li>
+        <li>SEO: 100</li>
+      </ul>
+    </section>
   </main>
+  <a class="back-link" href="../index.html">← Back to course portfolio</a>
 </body>
 </html>
