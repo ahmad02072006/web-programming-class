@@ -124,9 +124,18 @@ h2 {
 
 .lighthouse-image {
   display: block;
-  max-width: 100%;
+  max-width: 600px;
+  width: 100%;
   height: auto;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
+  border-radius: 6px;
+}
+
+.lighthouse-metrics {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.35;
 }
 
 .course-label {
