@@ -7,6 +7,42 @@
   <title>Project Submission | API Atlas</title>
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../skip-link.css">
+  <style>
+    .project-video-section {
+      grid-column: 1 / -1;
+    }
+
+    .project-video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 16px;
+      background: #111827;
+      box-shadow: 0 10px 28px rgba(24, 25, 45, 0.12);
+    }
+
+    .project-card-description {
+      margin: 0 0 20px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .project-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 720px) {
+      .project-video-section {
+        grid-column: auto;
+      }
+
+      .project-actions .gradient-button {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
 </head>
 <body class="project-page">
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -15,9 +51,9 @@
       <a class="project-brand" href="#top">API Atlas</a>
       <div class="project-links">
         <a href="../index.html">Home</a>
-        <a href="#presentation">Presentation</a>
+        <a href="#presentation">Video</a>
+        <a href="#slides">PowerPoint</a>
         <a href="#project">Project</a>
-        <a href="#lighthouse">Lighthouse</a>
       </div>
       <a class="project-cta" href="https://ahmad02072006.github.io/test-main-2/" target="_blank" rel="noopener">Open Project</a>
     </nav>
@@ -42,38 +78,28 @@
     <a class="portfolio-back project-back" href="../index.html#weeks">← Back to all weeks</a>
   </header>
   <main class="project-content" id="main-content" tabindex="-1">
-    <section class="project-card-section" id="presentation" aria-labelledby="presentation-heading">
-      <p class="section-kicker">Take a closer look</p>
-      <h2 id="presentation-heading">PRESENTATION</h2>
-      <a class="gradient-button" href="APIATLAS%20Project%20Presentation.pptx" download>Download the PowerPoint presentation</a>
+    <section class="project-card-section project-video-section" id="presentation" aria-labelledby="presentation-heading">
+      <p class="section-kicker">Watch the presentation</p>
+      <h2 id="presentation-heading">PRESENTATION VIDEO</h2>
+      <video class="project-video" controls playsinline preload="metadata">
+        <source src="video2635019642.mp4" type="video/mp4">
+        Your browser does not support embedded video. You can still access the presentation from the PowerPoint section below.
+      </video>
+    </section>
+    <section class="project-card-section" id="slides" aria-labelledby="slides-heading">
+      <p class="section-kicker">The complete project overview</p>
+      <h2 id="slides-heading">UPDATED POWERPOINT</h2>
+      <p class="project-card-description">View the presentation file or download a copy.</p>
+      <div class="project-actions">
+        <a class="gradient-button" href="APIATLAS%20Project%20Presentation.pptx" target="_blank" rel="noopener">Open PowerPoint file</a>
+        <a class="gradient-button" href="APIATLAS%20Project%20Presentation.pptx" download>Download PowerPoint</a>
+      </div>
     </section>
     <section class="project-card-section" id="project" aria-labelledby="live-project-heading">
       <p class="section-kicker">Plan your next route</p>
       <h2 id="live-project-heading">LIVE PROJECT</h2>
+      <p class="project-card-description">Explore API Atlas, the live travel-planning project.</p>
       <a class="gradient-button" href="https://ahmad02072006.github.io/test-main-2/" target="_blank" rel="noopener">Open API Atlas</a>
-    </section>
-    <section class="project-card-section project-lighthouse" id="lighthouse" aria-labelledby="lighthouse-result-heading">
-      <p class="section-kicker">A quick quality check</p>
-      <h2 id="lighthouse-result-heading">LIGHTHOUSE RESULT</h2>
-      <div class="project-lighthouse-layout">
-        <img
-          class="lighthouse-image"
-          src="Lighthouse%20.jpg"
-          alt="Lighthouse Performance score for API Atlas (mobile)."
-          width="1024"
-          height="1104"
-          loading="lazy"
-        >
-        <div class="lighthouse-summary">
-          <h3>Performance score: 97</h3>
-          <p class="project-caption">Mobile Lighthouse snapshot: Performance 97, Accessibility 95, Best Practices 100, SEO 100.</p>
-          <ul class="lighthouse-metrics">
-            <li>Accessibility: 95</li>
-            <li>Best Practices: 100</li>
-            <li>SEO: 100</li>
-          </ul>
-        </div>
-      </div>
     </section>
   </main>
   <footer class="portfolio-footer">
