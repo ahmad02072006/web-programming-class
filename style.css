@@ -436,6 +436,13 @@ body.portfolio-document .button {
   scroll-margin-top: 24px;
 }
 
+.performance-section h1 {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  letter-spacing: -0.04em;
+}
+
 .performance-images {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
