@@ -432,6 +432,47 @@ body.portfolio-document .button {
   scroll-margin-top: 24px;
 }
 
+.performance-section {
+  scroll-margin-top: 24px;
+}
+
+.performance-images {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 24px;
+  margin: 24px 0;
+}
+
+.performance-figure {
+  margin: 0;
+  text-align: center;
+}
+
+.performance-figure a {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+.performance-figure img {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.performance-figure figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
 .about-card p:last-child {
   margin-bottom: 0;
 }
@@ -607,6 +648,7 @@ body.portfolio-document .button {
   }
 
   .week-grid,
+  .performance-images,
   .project-content,
   .project-lighthouse-layout {
     grid-template-columns: 1fr;
