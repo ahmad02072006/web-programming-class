@@ -1,0 +1,21 @@
+[submodule "Web 10_2/portfolio-main"]
+	path = Web 10_2/portfolio-main
+	url = https://github.com/ahmad02072006/portfolio-main.git
+[submodule "Web 10_2/webpro-book-search"]
+	path = Web 10_2/webpro-book-search
+	url = https://github.com/ahmad02072006/webpro-book-search.git
+[submodule "Web 12_1/week12-react"]
+	path = Web 12_1/week12-react
+	url = https://github.com/ahmad02072006/week12-react.git
+[submodule "Web week 10_1/webpro-w9"]
+	path = Web week 10_1/webpro-w9
+	url = https://github.com/ahmad02072006/webpro-w9.git
+[submodule "Web week 11_1/course-catalog"]
+	path = Web week 11_1/course-catalog
+	url = https://github.com/ahmad02072006/course-catalog-app.git
+[submodule "Web week 11_1/task11"]
+	path = Web week 11_1/task11
+	url = https://github.com/ahmad02072006/task11.git
+[submodule "Web week 11_2/week11-react"]
+	path = Web week 11_2/week11-react
+	url = https://github.com/ahmad02072006/week11-react.git
