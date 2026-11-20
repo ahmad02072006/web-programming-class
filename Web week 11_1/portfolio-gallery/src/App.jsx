@@ -1,122 +1,77 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import FilterBar from "./FilterBar";
+import ProjectList from "./ProjectList";
+import Section from "./Section";
+import ProfileCard from "./ProfileCard";
+import { weeks, projects } from "./data";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+const allItems = [...weeks, ...projects];
+const filters = ["All", ...new Set(allItems.flatMap((p) => p.tech))];
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+function matches(item, selected, query) {
+  const techOk = selected === "All" || item.tech.includes(selected);
+  const q = query.trim().toLowerCase();
+  const textOk =
+    q === "" ||
+    item.title.toLowerCase().includes(q) ||
+    item.description.toLowerCase().includes(q);
+  return techOk && textOk;
 }
 
-export default App
+function App() {
+  const [selected, setSelected] = useState("All");
+  const [query, setQuery] = useState("");
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+  }, [dark]);
+
+  const visibleWeeks = weeks.filter((w) => matches(w, selected, query));
+  const visibleProjects = projects.filter((p) => matches(p, selected, query));
+
+  return (
+    <div className="app">
+      <header className="hero">
+        <button className="theme-toggle" onClick={() => setDark(!dark)}>
+          {dark ? "Light mode" : "Dark mode"}
+        </button>
+        <h1>Ahmad's Portfolio</h1>
+        <p>Every week of my Web Programming class, plus my projects, in one place</p>
+      </header>
+      <ProfileCard
+  name="Ochilov Akhmadjon"
+  role="Web Programming student"
+  university="Gachon University"
+  skills={["HTML", "CSS", "JavaScript", "React"]}
+  available={true}
+/>
+      <input
+        className="search"
+        type="search"
+        placeholder="Search weeks and projects..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      <FilterBar options={filters} selected={selected} onSelect={setSelected} />
+      <p className="count">
+        Showing {visibleWeeks.length + visibleProjects.length} of {allItems.length} items
+      </p>
+
+      <Section title="Course Weeks" subtitle="Open any week's tasks (Weeks 2 to 11)">
+        <ProjectList projects={visibleWeeks} />
+      </Section>
+
+      <Section title="Projects" subtitle="Things I built beyond the weekly tasks">
+        <ProjectList projects={visibleProjects} />
+      </Section>
+
+      <footer className="footer">
+        © 2026 Ahmad · Web Programming K0126_002 · Built with React + Vite
+      </footer>
+    </div>
+  );
+}
+
+export default App;

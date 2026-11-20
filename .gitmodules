@@ -10,8 +10,8 @@
 [submodule "Web week 10_1/webpro-w9"]
 	path = Web week 10_1/webpro-w9
 	url = https://github.com/ahmad02072006/webpro-w9.git
-[submodule "Web week 11_1/course-catalog"]
-	path = Web week 11_1/course-catalog
+[submodule "Web week 11_1/course-catalog-app"]
+	path = Web week 11_1/course-catalog-app
 	url = https://github.com/ahmad02072006/course-catalog-app.git
 [submodule "Web week 11_1/task11"]
 	path = Web week 11_1/task11
