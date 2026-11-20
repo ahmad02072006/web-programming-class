@@ -406,113 +406,6 @@ body.portfolio-document .button {
   gap: 8px 14px;
 }
 
-.new-projects {
-  margin-top: 64px;
-}
-
-.projects-heading {
-  margin-bottom: 24px;
-}
-
-.project-week-nav {
-  position: sticky;
-  z-index: 5;
-  top: 12px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto 32px;
-  padding: 8px;
-  border: 1px solid rgba(62, 56, 121, 0.12);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 8px 24px rgba(38, 37, 76, 0.1);
-  backdrop-filter: blur(12px);
-}
-
-.project-week-nav a {
-  padding: 7px 14px;
-  border-radius: 999px;
-  color: var(--purple);
-  font-size: 0.9rem;
-  font-weight: 800;
-  text-decoration: none;
-}
-
-.project-week-nav a:hover {
-  background: #f1effb;
-  color: var(--pink);
-}
-
-.project-week {
-  margin: 0 0 40px;
-  scroll-margin-top: 96px;
-}
-
-.project-week > h3 {
-  margin: 0 0 16px;
-  color: var(--purple);
-  font-size: clamp(1.4rem, 3vw, 1.8rem);
-  letter-spacing: -0.035em;
-}
-
-.project-card-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.new-project-card {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 24px;
-  border: 1px solid rgba(62, 56, 121, 0.1);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 12px 34px rgba(38, 37, 76, 0.075);
-  transition: transform 160ms ease, box-shadow 160ms ease;
-}
-
-.new-project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 42px rgba(38, 37, 76, 0.13);
-}
-
-.new-project-card .week-number {
-  margin-bottom: 12px;
-}
-
-.new-project-card h4 {
-  margin: 0 0 10px;
-  color: var(--ink);
-  font-size: 1.15rem;
-  line-height: 1.25;
-  letter-spacing: -0.025em;
-}
-
-.new-project-card p {
-  flex: 1;
-  margin: 0 0 20px;
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-.new-project-link {
-  color: var(--purple);
-  font-weight: 800;
-  text-decoration: none;
-}
-
-.new-project-link:hover {
-  color: var(--pink);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
 .week-card.project-card {
   border-color: transparent;
   background: linear-gradient(130deg, var(--blue), var(--purple) 55%, var(--pink));
@@ -700,10 +593,6 @@ body.portfolio-document .button {
   .week-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .project-card-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 720px) {
@@ -766,23 +655,10 @@ body.portfolio-document .button {
   }
 
   .week-grid,
-  .project-card-grid,
   .performance-images,
   .project-content,
   .project-lighthouse-layout {
     grid-template-columns: 1fr;
-  }
-
-  .project-week-nav {
-    position: static;
-    width: 100%;
-    justify-content: space-between;
-    gap: 4px;
-    margin-bottom: 28px;
-  }
-
-  .project-week-nav a {
-    padding-inline: 10px;
   }
 
   .project-lighthouse {
