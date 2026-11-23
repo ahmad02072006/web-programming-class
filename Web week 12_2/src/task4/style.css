@@ -1,0 +1,47 @@
+.l4-log { height: 230px; overflow: auto; padding: 10px; border-radius: 14px; background: var(--code-bg); border: 1px solid var(--border); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.78rem; display: grid; align-content: start; gap: 3px; }
+.l4-line { display: grid; grid-template-columns: 96px 70px 1fr; gap: 8px; align-items: baseline; }
+.l4-line time { color: var(--muted); }
+.l4-line b { font-weight: 700; text-transform: uppercase; font-size: 0.68rem; }
+.l4-line.effect b { color: var(--ok); }
+.l4-line.cleanup b { color: var(--err); }
+.l4-line.info b { color: var(--accent-2); }
+
+.l4-probe { padding: 18px; border-radius: 16px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 25%, transparent), color-mix(in srgb, var(--accent-2) 15%, transparent)); border: 1px solid var(--border); }
+.l4-probe.off { background: var(--code-bg); border-style: dashed; color: var(--muted); }
+.l4-legend { display: grid; gap: 6px; font-size: 0.85rem; color: var(--muted); }
+.l4-legend .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; }
+.dot.mount { background: var(--ok); } .dot.update { background: var(--warn); } .dot.unmount { background: var(--err); }
+
+.l4-pattern { padding: 16px; border-radius: 16px; background: var(--code-bg); border: 1px solid var(--border); display: grid; gap: 10px; }
+.l4-pattern h3 { margin: 0; }
+.l4-counters { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.l4-counters > div { text-align: center; padding: 10px 6px; border-radius: 12px; background: var(--surface); display: grid; }
+.l4-counters span { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.l4-counters strong { font-size: 2rem; font-variant-numeric: tabular-nums; }
+.l4-counters .hot strong { color: var(--accent-2); }
+
+.l4-clock { display: grid; place-items: center; gap: 4px; padding: 22px; border-radius: 16px; font-family: ui-monospace, monospace; font-size: 2rem; font-weight: 700; border: 1px solid var(--border); background: var(--code-bg); }
+.l4-clock small { font-family: system-ui, sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.l4-clock.ok { border-color: color-mix(in srgb, var(--ok) 50%, transparent); } .l4-clock.ok small { color: var(--ok); }
+.l4-clock.bad { border-color: color-mix(in srgb, var(--err) 50%, transparent); } .l4-clock.bad small { color: var(--err); }
+.l4-clock.off { color: var(--muted); border-style: dashed; font-size: 1rem; font-weight: 500; }
+.l4-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.l4-stats > div { padding: 14px; border-radius: 14px; background: var(--code-bg); border: 1px solid var(--border); display: grid; }
+.l4-stats span { font-size: 0.78rem; color: var(--muted); }
+.l4-stats strong { font-size: 1.8rem; }
+.l4-stats strong.ok { color: var(--ok); } .l4-stats strong.bad { color: var(--err); }
+
+.l4-result { padding: 18px; border-radius: 16px; background: var(--code-bg); border: 1px solid var(--border); display: grid; gap: 8px; justify-items: start; min-height: 110px; }
+.l4-result.stale { border-color: var(--err); box-shadow: 0 0 30px color-mix(in srgb, var(--err) 25%, transparent); }
+.l4-result.fresh { border-color: var(--ok); }
+
+.l4-preview { border-radius: 18px; padding: 14px; background: var(--bg); border: 1px solid var(--border); }
+.l4-preview-inner { padding: 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); color: var(--text); }
+.l4-inbox { display: flex; align-items: center; gap: 16px; padding: 18px; border-radius: 16px; background: var(--code-bg); border: 1px solid var(--border); }
+
+.l4-loop, .l4-derived { padding: 16px; border-radius: 16px; background: var(--code-bg); border: 1px solid var(--border); display: grid; gap: 8px; align-content: start; }
+.l4-loop.bad, .l4-derived.bad { border-color: color-mix(in srgb, var(--err) 45%, transparent); }
+.l4-loop.ok, .l4-derived.ok { border-color: color-mix(in srgb, var(--ok) 45%, transparent); }
+.l4-loop strong { font-size: 1.6rem; }
+.l4-derived h3 { margin: 0; }
+.l4-derived p { margin: 0; }

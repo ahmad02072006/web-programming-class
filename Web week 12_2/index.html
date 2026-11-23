@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Week 12_2 · React Effects Homework</title>
+    <script>
+      try { document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark'); } catch (e) {}
+    </script>
+    <link rel="stylesheet" href="./src/shared/theme.css" />
+    <style>
+      .hub-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-top: 28px; }
+      .hub-card { display: grid; gap: 8px; align-content: start; color: var(--text); transition: transform .15s, border-color .15s; }
+      .hub-card:hover { transform: translateY(-4px); border-color: var(--accent); text-decoration: none; }
+      .hub-num { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; font-weight: 800; color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+      .hub-card .badge { justify-self: start; }
+      .hub-hero { padding: 56px 0 8px; }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="nav-inner">
+        <span class="brand"><span class="dot"></span> Week 12_2 · Web Programming K0126_002</span>
+        <span class="nav-links"></span>
+        <button class="icon-btn" id="theme" aria-label="Toggle theme">☀️</button>
+      </div>
+    </header>
+    <main class="container">
+      <div class="hub-hero page-head">
+        <div class="eyebrow">Week 12 · Friday · Homework</div>
+        <h1>React Effects &amp; useEffect</h1>
+        <p>Five separate mini-apps covering the homework: fetching data, cleanup, lifecycle, patterns and quizzes. Built with React + Vite.</p>
+      </div>
+      <div class="hub-grid">
+        <a class="card hub-card" href="./task1-weather/index.html"><span class="hub-num">1</span><h2>Weather Dashboard</h2><p class="muted">Open-Meteo API, city geocoding, forecast, geolocation bonus.</p><span class="badge accent">fetch · abort · debounce</span></a>
+        <a class="card hub-card" href="./task2-github/index.html"><span class="hub-num">2</span><h2>GitHub User Lookup</h2><p class="muted">Debounced search, loading and 404 states, profile + repos.</p><span class="badge accent">fetch · debounce · cleanup</span></a>
+        <a class="card hub-card" href="./task3-study-guide/index.html"><span class="hub-num">3</span><h2>Study Guide Exercises</h2><p class="muted">Title sync, fetch a user, stopwatch — with solution code.</p><span class="badge accent">document.title · setInterval</span></a>
+        <a class="card hub-card" href="./task4-effects-lab/index.html"><span class="hub-num">4</span><h2>Effects Lifecycle &amp; Patterns Lab</h2><p class="muted">Six interactive experiments: lifecycle, deps, leaks, races, gotchas.</p><span class="badge accent">lifecycle · race condition</span></a>
+        <a class="card hub-card" href="./task5-sprint-quiz/index.html"><span class="hub-num">5</span><h2>Sprint Quiz &amp; Concept Mastery</h2><p class="muted">8 timed questions, flashcards, cheat sheet from the slides.</p><span class="badge accent">quiz · flashcards</span></a>
+      </div>
+    </main>
+    <script>
+      (function () {
+        var btn = document.getElementById('theme');
+        function paint() { btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; }
+        btn.addEventListener('click', function () {
+          var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          paint();
+        });
+        paint();
+      })();
+    </script>
+  </body>
+</html>

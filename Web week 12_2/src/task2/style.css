@@ -1,0 +1,15 @@
+.gh-input-wrap { flex: 1; min-width: 220px; position: relative; }
+.gh-input-wrap span { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); }
+.gh-input-wrap .input { padding-left: 42px; }
+.gh-empty { text-align: center; padding: 40px 20px; }
+.gh-skel { display: flex; gap: 20px; align-items: center; }
+.gh-head { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+.gh-avatar { border-radius: 50%; border: 3px solid transparent; background: linear-gradient(var(--bg), var(--bg)) padding-box, linear-gradient(135deg, var(--accent), var(--accent-2)) border-box; box-shadow: 0 0 40px var(--glow-1); }
+.gh-bio { margin: 10px 0 12px; }
+.gh-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-top: 20px; }
+.gh-stats > div { text-align: center; background: var(--code-bg); border: 1px solid var(--border); border-radius: 14px; padding: 14px 8px; display: grid; }
+.gh-stats strong { font-size: 1.6rem; background: linear-gradient(90deg, var(--accent-2), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.gh-stats span { font-size: 0.8rem; color: var(--muted); }
+.gh-repo { display: grid; gap: 8px; padding: 14px; border-radius: 14px; background: var(--code-bg); border: 1px solid var(--border); color: var(--text); transition: transform 0.15s, border-color 0.15s; }
+.gh-repo:hover { transform: translateY(-2px); border-color: var(--accent); text-decoration: none; }
+.gh-repo-desc { font-size: 0.85rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
