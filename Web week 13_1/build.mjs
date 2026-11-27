@@ -34,8 +34,9 @@ const TASKS = [
 ];
 
 const nav = (active) => `
-  <nav class="nav" aria-label="Week 13 tasks">
-    <a class="brand" href="index.html">NEXUS<i>/FORMS</i> · W13</a>
+  <nav class="nav" aria-label="Week 13_1 tasks">
+    <a class="brand" href="index.html">NEXUS<i>/FORMS</i> · 13_1</a>
+    <a class="tab" href="../index.html">← Back to course</a>
     ${TASKS.map((t) => `<a class="tab${t.n === active ? ' on' : ''}" href="${t.file}.html">${t.icon} ${t.nav}</a>`).join('\n    ')}
   </nav>`;
 
@@ -44,7 +45,7 @@ const head = (title) => `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${title} · Web Programming W13</title>
+<title>${title} · Web Programming Week 13_1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/theme.css">
@@ -61,7 +62,7 @@ for (const t of TASKS) {
     <div class="meta">${t.badges.map((b, i) => `<span class="badge${i === 0 ? ' hot' : ''}">${b}</span>`).join('')}</div>
   </header>
   <main id="root"><noscript><div class="banner bad">This page needs JavaScript.</div></noscript></main>
-  <footer class="foot">Web Programming K0126_002 · Week 13 · React Forms &amp; Controlled Components</footer>
+  <footer class="foot">Web Programming K0126_002 · Week 13_1 · React Forms &amp; Controlled Components</footer>
 </div>
 <script src="dist/task${t.n}.js"></script>
 </body>
@@ -69,14 +70,15 @@ for (const t of TASKS) {
 `);
 }
 
-writeFileSync('index.html', `${head('Week 13 — React Forms')}
+writeFileSync('index.html', `${head('Week 13_1 — React Forms')}
 <body>
 <div class="shell">
-  <nav class="nav" aria-label="Week 13 tasks"><a class="brand" href="index.html">NEXUS<i>/FORMS</i> · W13</a>
+  <nav class="nav" aria-label="Week 13_1 tasks"><a class="brand" href="index.html">NEXUS<i>/FORMS</i> · 13_1</a>
+    <a class="tab" href="../index.html">← Back to course</a>
     ${TASKS.map((t) => `<a class="tab" href="${t.file}.html">${t.icon} ${t.nav}</a>`).join('\n    ')}
   </nav>
   <header class="hero">
-    <div class="eyebrow">Web Programming K0126_002 · Week 13 · Monday</div>
+    <div class="eyebrow">Web Programming K0126_002 · Week 13_1 · Monday</div>
     <h1>React Forms &amp;<br>Controlled Components</h1>
     <p>Six missions from the Monday lecture — every form built from scratch with React state, one shared handler, inline validation and accessible markup.</p>
     <div class="meta"><span class="badge hot">6 tasks</span><span class="badge">controlled inputs</span><span class="badge">useRef</span><span class="badge">aria-*</span></div>
